@@ -1,0 +1,7 @@
+{
+  "name": "Finale Educativa",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
