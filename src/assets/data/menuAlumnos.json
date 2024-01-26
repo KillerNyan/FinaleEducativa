@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Inicio",
+        "icon": "happy-outline",
+        "redirectTo": "/tabs/tab1"
+    },
+    {
+        "name": "Calendario",
+        "icon": "book-outline",
+        "redirectTo": "/calendario"
+    },
+    {
+        "name": "VideoClases",
+        "icon": "pin-outline",
+        "redirectTo": "/clases"
+    },
+    {
+        "name": "Actividades",
+        "icon": "happy-outline",
+        "redirectTo": "/actividades"
+    },
+    {
+        "name": "Notas",
+        "icon": "happy-outline",
+        "redirectTo": "/notas"
+    },
+    {
+        "name": "Evaluaciones",
+        "icon": "happy-outline",
+        "redirectTo": "/evaluaciones"
+    },
+    {
+        "name": "Notificaciones",
+        "icon": "happy-outline",
+        "redirectTo": "/notificaciones"
+    },
+    {
+        "name": "Soporte Tecnico",
+        "icon": "happy-outline",
+        "redirectTo": "/soporte"
+    }
+]

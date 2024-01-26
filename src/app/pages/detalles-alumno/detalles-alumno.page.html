@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Alumnos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngFor="let detalle of detalles">
+
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="4">
+          <div class="ion-padding">
+            <ion-avatar>
+              <ion-img src="{{ foto }}"></ion-img>
+            </ion-avatar>
+          </div>
+        </ion-col>
+        <ion-col size="8">
+          <div class="ion-padding-top">
+            <ion-label>{{ detalle.nombres }}, {{ detalle.apellidos }}</ion-label>
+          </div>
+          <br>
+          <div>
+            <ion-label>{{ detalle.grado }}, {{ detalle.seccion }}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div>
+      <ion-accordion-group value="'first'">
+        <ion-accordion value="first">
+          <ion-item slot="header" color="primary">
+            <ion-label>Información del Alumno</ion-label>
+          </ion-item>
+          <div class="ion-padding-start ion-padding-bottom ion-padding-top" slot="content">CUI: {{ detalle.cui }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">Código de Alumno: {{ detalle.codigo_unico }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">Nombres: {{ detalle.nombres }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">Apellidos: {{ detalle.apellidos }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">Fecha de Nacimiento: {{ detalle.fecha_nacimiento }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">Edad: {{ detalle.edad }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">Nivel Academico: {{ detalle.nivel }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">Grado: {{ detalle.grado }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">Sección: {{ detalle.seccion }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">Tipo de Sangre: {{ detalle.tipo_sangre }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">Alergias: {{ detalle.alergico_a }}</div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </div>
+    <div>
+      <ion-accordion-group>
+        <ion-accordion value="second">
+          <ion-item slot="header" color="primary">
+            <ion-label>Información de los Padres:</ion-label>
+          </ion-item>
+          <ng-container *ngFor="let padres of detalle.padres; let i = index">
+            <div class="ion-padding" slot="content">
+              <ion-item>
+                <ion-label color="primary"><b>Padre No.{{ i + 1 }}</b></ion-label>
+              </ion-item>
+            </div>
+            <div class="ion-padding-start ion-padding-bottom" slot="content">DPI: {{ padres.dpi }}</div>
+            <div class="ion-padding-start ion-padding-bottom" slot="content">Nombres: {{ padres.nom }}</div>
+            <div class="ion-padding-start ion-padding-bottom" slot="content">Apellidos: {{ padres.ape }}</div>
+            <div class="ion-padding-start ion-padding-bottom" slot="content">Teléfono: {{ padres.tel }}</div>
+            <div class="ion-padding-start ion-padding-bottom" slot="content">E-mail: {{ padres.mail }}</div>
+          </ng-container>
+        </ion-accordion>
+      </ion-accordion-group>
+    </div>
+    <div>
+      <ion-accordion-group>
+        <ion-accordion value="thrid">
+          <ion-item slot="header" color="primary">
+            <ion-label>Datos de Facturación:</ion-label>
+          </ion-item>
+          <div class="ion-padding-start ion-padding-bottom ion-padding-top" slot="content">Nombre de Facturación: {{ detalle.nombre_facturacion }}</div>
+          <div class="ion-padding-start ion-padding-bottom" slot="content">NIT: {{ detalle.nit_facturacion }}</div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </div>
+    <div>
+      <ion-accordion-group>
+        <ion-accordion value="fourth">
+          <ion-item slot="header" color="primary">
+            <ion-label>Datos del Seguro:</ion-label>
+          </ion-item>
+          <ng-container *ngFor="let seguro of detalle.seguro">
+            <div class="ion-padding-start ion-padding-bottom ion-padding-top" slot="content">Seguro adquirido: {{ seguro.tiene_seguro }}</div>
+            <div class="ion-padding-start ion-padding-bottom" slot="content">Aseguradora: {{ seguro.aseguradora }}</div>
+            <div class="ion-padding-start ion-padding-bottom" slot="content">Póliza: {{ seguro.poliza }}</div>
+            <div class="ion-padding-start ion-padding-bottom" slot="content">Plan: {{ seguro.plan }}</div>
+            <div class="ion-padding-start ion-padding-bottom" slot="content">Instrucciones: {{ seguro.instrucciones }}</div>
+            <div class="ion-padding-start ion-padding-bottom" slot="content">Comentarios: {{ seguro.comentario }}</div>
+          </ng-container>
+        </ion-accordion>
+      </ion-accordion-group>
+    </div>
+
+  </ng-container>
+
+</ion-content>

@@ -1,0 +1,125 @@
+<ion-menu side="start" menuId="menu" contentId="main" mode="md">
+  <ion-header>
+    <ion-toolbar class="menu" color="primary">
+      <ion-title class="ion-text-center"> MENÚ </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="menu-content">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+          <ion-item>
+            <img src="{{ foto }}" width="200px" height="200px" style="border-radius: 100%;" slot="start" class="img">
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2"></ion-col>
+        <ion-col size="8">
+          <div class="ion-text-center" style="font-size: 25px;">
+            <ion-label><b>{{ nombre }}</b></ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="2"></ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <ion-menu-toggle>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item routerLink="/grados">
+            <ion-icon name="school-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Alumnos</ion-label>
+          </ion-item>
+          <ion-item (click)="verTareas()">
+            <ion-icon name="library-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Tareas</ion-label>
+          </ion-item>
+          <ion-item (click)="verPostit()">
+            <ion-icon name="pin-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Gestor de Post It</ion-label>
+          </ion-item>
+          <!-- <ion-item (click)="verCalificaciones()">
+            <ion-icon name="ribbon-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Calificaciones</ion-label>
+          </ion-item> -->
+          <ion-item (click)="verCirculares()">
+            <ion-icon name="reader-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Circulares</ion-label>
+          </ion-item>
+          <ion-item (click)="verPhotoAlbum()">
+            <ion-icon name="images-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Gestor Photo Album</ion-label>
+          </ion-item>
+          <!-- <ion-item (click)="verReportes()">
+            <ion-icon name="newspaper-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Reportes</ion-label>
+          </ion-item> -->
+          <ion-item (click)="verSoporte()">
+            <ion-icon name="settings-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Soporte Técnico</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-menu-toggle>
+  </ion-content>
+  
+  <ion-footer>
+    <ion-menu-toggle>
+      <ion-toolbar>
+        <ion-buttons slot="end" mode="ios" class="item-padding-salir">
+          <ion-button color="dark" (click)="logOut()">
+            <ion-icon slot="start" name="power-outline" class="icon-menu"></ion-icon>
+            <ion-note>Salir</ion-note>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-menu-toggle>
+  </ion-footer>
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar color="primary" id="main">
+
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu" class="icon-menu"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-capitalize"> secciones (alumnos) </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card *ngFor="let seccion of secciones; let i = index" (click)='verAlumnos(i)'>
+    <ion-card-title color="light"> {{ seccion.grado_descripcion }} Sección: {{ seccion.seccion_descripcion }} </ion-card-title>
+  </ion-card>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" style="margin-bottom: 60px;">
+    <ion-fab-button size="medium">
+      <ion-icon style="zoom: 1.2;" name="chevron-up-circle-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button style="width: 50px; height: 50px;" (click)="verCirculares()">
+        <ion-icon name="reader-outline" style="zoom: 1.5;" color="primary"></ion-icon>
+      </ion-fab-button>
+      <!-- <ion-fab-button style="width: 50px; height: 50px;">
+        <ion-icon name="glasses-outline" style="zoom: 1.5;" color="primary"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button style="width: 50px; height: 50px;">
+        <ion-icon name="chatbubbles-outline" style="zoom: 1.5;" color="primary"></ion-icon>
+      </ion-fab-button> -->
+      <ion-fab-button style="width: 50px; height: 50px;" (click)="verPostit()">
+        <ion-icon name="pin-outline" style="zoom: 1.5;" color="primary"></ion-icon>
+      </ion-fab-button>
+      <!-- <ion-fab-button style="width: 50px; height: 50px;">
+        <ion-icon name="calendar-number-outline" style="zoom: 1.5;" color="primary"></ion-icon>
+      </ion-fab-button> -->
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Photo Album</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let photoAlbum of photoAlbums; let i = index" (click)="verPhotoAlbum(i)">
+    <ion-card-header>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="3">
+            <ion-avatar>
+              <img src="{{ photoAlbum.url_logo}}"/>
+            </ion-avatar>
+          </ion-col>
+          <ion-col size="9">
+            <ion-card-title>Colegio ASMS</ion-card-title>
+            <ion-card-subtitle>ASMS</ion-card-subtitle>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+
+    <ion-card-content>
+        <swiper-container>
+          <swiper-slide *ngFor="let imagen of photoAlbum.imagenes">
+            <img src="{{ imagen.foto }}" style="height: 300px; width: 100%;">
+          </swiper-slide>
+        </swiper-container>
+      <div class="ion-padding">
+        <ion-card-subtitle>{{ photoAlbum.texto }}</ion-card-subtitle>
+        <ion-card-subtitle>{{ photoAlbum.fecha }}</ion-card-subtitle>
+        <ng-container *ngFor="let hijo of photoAlbum.alumnos">
+          <ion-card-subtitle>{{ hijo.alumno }}</ion-card-subtitle>
+        </ng-container>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)" disabled="{{ scroll }}">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

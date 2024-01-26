@@ -1,0 +1,61 @@
+  // COLORES POSTIT
+
+  .color1 {
+    background: #ffffcc;
+    padding: 10px;
+    width: 160px;
+    height: 188px;
+    box-shadow: 2px 2px 5px #999;
+    overflow: hidden;
+  }
+
+  // --------------------------------------------------------------------------------
+
+  .textCodigo {
+    font-size: 12px;
+  }
+
+  .textTitulo {
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .textfechalit {
+    font-size: 11px;
+    float: right;
+  }
+
+  .textPara {
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  $font-size: 12px;
+  $line-height: 1.4;
+  $lines: 2;
+
+  .biography {
+    display: block;
+    display: -webkit-box;
+    height: $font-size * $line-height * $lines;
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  $lines: 1;
+
+  .biography2 {
+    display: block;
+    display: -webkit-box;
+    height: $font-size * $line-height * $lines;
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

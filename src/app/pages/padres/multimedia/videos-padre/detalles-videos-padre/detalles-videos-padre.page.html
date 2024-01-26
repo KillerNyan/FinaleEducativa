@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Videos (Detalle)</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ng-container *ngFor="let detalle of detalles">
+    <div class="ion-padding">
+      <ion-label color="primary"><b>Título del Video:</b></ion-label>
+    </div>
+    <div class="ion-padding">
+      <ion-label>{{ detalle.titulo }}</ion-label>
+    </div>
+    <div class="ion-padding">
+      <ion-label color="primary"><b>Tipo de Video:</b></ion-label>
+    </div>
+    <div class="ion-padding">
+      <ion-label>{{ detalle.tipo }}</ion-label>
+    </div>
+
+    <div class="ion-padding">
+      <div class="ion-padding-bottom">
+        <ion-label color="primary"><b>Video:</b></ion-label>
+      </div>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="4"></ion-col>
+          <ion-col size="4">
+            <div class="ion-text-center">
+              Ver Video
+            </div>
+          </ion-col>
+          <ion-col size="4"></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4"></ion-col>
+          <ion-col size="4">
+            <div class="ion-text-center">
+              <a href="https://www.youtube.com/watch?v={{ detalle.video }}">
+                <ion-icon slot="start" name="logo-youtube" size="large" color="danger" style="height: 74px; width: 74px;"></ion-icon>
+              </a>
+            </div>
+          </ion-col>
+          <ion-col size="5"></ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ng-container>
+  
+</ion-content>

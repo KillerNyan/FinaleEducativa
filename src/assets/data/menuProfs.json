@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Alumnos",
+        "icon": "happy-outline",
+        "redirectTo": "/grados"
+    },
+    {
+        "name": "Tareas",
+        "icon": "book-outline",
+        "redirectTo": "/tareas"
+    },
+    {
+        "name": "Gestor Postit",
+        "icon": "pin-outline",
+        "redirectTo": "/post-sec"
+    },
+    {
+        "name": "Calificaciones",
+        "icon": "happy-outline",
+        "redirectTo": "/calificaciones"
+    },
+    {
+        "name": "Circulares",
+        "icon": "happy-outline",
+        "redirectTo": "/circulares"
+    },
+    {
+        "name": "Gestor Photo Album",
+        "icon": "happy-outline",
+        "redirectTo": "/photos"
+    },
+    {
+        "name": "Gestor Reportes",
+        "icon": "happy-outline",
+        "redirectTo": "/reportes"
+    },
+    {
+        "name": "Soporte Tecnico",
+        "icon": "happy-outline",
+        "redirectTo": "/soporte"
+    }
+]

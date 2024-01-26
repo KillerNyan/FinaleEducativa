@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atras
+    </ion-button>
+    
+    <ion-title>Secciones (Calificaciones)</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card *ngFor="let seccion of secciones, let i = index" (click)="verAlumnos(i)">
+    <ion-card-title color="light"> {{ seccion.grado_descripcion }} Seccion: {{ seccion.seccion_descripcion }} </ion-card-title>
+  </ion-card>
+
+</ion-content>

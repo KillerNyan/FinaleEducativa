@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+    
+    <ion-title>Post It (Nuevo)</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item class="ion-padding-top ion-padding-bottom">
+    <ion-input type="text" clearOnEdit="true" clearInput label="Título del Post It:" labelPlacement="floating" [(ngModel)]="titulo"></ion-input>
+  </ion-item>
+  
+  <ion-button expand="block" color="light" class="ion-padding" shape="round" (click)="selectAlumnos()">
+    <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+    Selecciona los Alumnos: ({{ conteo }} Seleccionados)
+  </ion-button>
+  
+  <ion-item>
+    <ion-textarea placeholder="Descripción del Post It:" auto-grow="true" rows="10" [(ngModel)]="descripcion"></ion-textarea>
+  </ion-item>
+
+  <ion-button (click)="pickFile()" expand="block" shape="round" color="medium" class="ion-padding">
+    ADJUNTAR ARCHIVOS ({{ archivos }} archivos)
+  </ion-button>
+
+</ion-content>
+
+<footer>
+
+  <ion-button (click)="enviar()" expand="block" shape="round" color="primary" class="ion-padding">
+    CREAR POST IT
+  </ion-button>
+
+</footer>

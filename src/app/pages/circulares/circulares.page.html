@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+    
+    <ion-title>Circulares</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item *ngFor="let circular of circulares; let i = index" (click)="abrirCircular(i)">
+    <ion-col size="2">
+      <ion-avatar item-start>
+        <img src="{{circular.url_logo}}" style="width: 80%;">
+      </ion-avatar>
+    </ion-col>
+    <ion-col size="9">
+      <label class="{{circular.clase}}">
+        <p style="margin-bottom: -9px;"> {{circular.fecha_publicacion}} </p>
+        <p style="margin-bottom: -9px;"> {{circular.titulo}} </p>
+        <p> {{circular.descripcion}} </p>
+      </label>
+    </ion-col>
+    <ion-col size="1">
+      <ion-icon name="arrow-forward" size="large"></ion-icon>
+    </ion-col>
+  </ion-item>
+
+<ion-infinite-scroll (ionInfinite)="onIonInfinite($event)" disabled="{{ scroll }}">
+<ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando..."></ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+</ion-content>

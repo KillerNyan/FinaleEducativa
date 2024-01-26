@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" expand="block" slot="start">
+      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Materias (Tareas)</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="fondo">
+
+
+    <ion-card class="titulo">
+      <ion-card-header>
+        <ion-card-subtitle> {{ gradoDesc }} Sección: {{ seccionDesc }} </ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-grid fixed class="ion-padding">
+      <ion-row class="chalkboard-line">
+        <ion-col size="6" *ngFor="let materia of materias, let i = index" (click)="verTareas(i)" class="chalkboard-row">
+          <ion-card class="materias">
+            <ion-card-content>
+              <ion-card-subtitle color="light" class="ion-padding-bottom ion-text-center"> {{ materia.mat_descripcion }}
+              </ion-card-subtitle>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+</ion-content>

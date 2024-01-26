@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Post It (Detalle)</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="ion-padding">
+    <ion-label color="primary"><b>Título del Post It:</b></ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-input color="dark" value="{{ titulo }}" [disabled]="disabled" [(ngModel)]="titulo"></ion-input>
+  </div>
+  <div class="ion-padding">
+    <ion-label color="primary"><b>Descripción del Post It:</b></ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-textarea color="dark" value="{{ descripcion }}" [disabled]="disabled" [(ngModel)]="descripcion"></ion-textarea>
+  </div>
+  <div class="ion-padding">
+    <ion-label color="primary"><b>Fecha del Post It:</b></ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-label color="medium">{{ fecha }}</ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-label color="primary"><b>Alumnos:</b></ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-label color="medium">{{ alumno }}</ion-label>
+  </div>
+
+  <ion-button (click)="pickFile()" expand="block" shape="round" color="medium" class="ion-padding" [disabled]="disabled">
+    ADJUNTAR ARCHIVOS ({{docs}} archivos)
+  </ion-button>
+
+  <div class="ion-padding">
+    <swiper-container>
+      <swiper-slide *ngFor="let imagen of imagenes">
+        <img src="{{ imagen.imagen_url }}" (click)="verImg()">
+      </swiper-slide>
+      <swiper-slide *ngFor="let archivo of archivos">
+        <a href="{{ archivo.archivo_url }}" target="_blank">
+          <ion-img src="{{ archivo.icono }}"></ion-img>
+        </a>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6"><ion-button (click)="modificar()" expand="block" shape="round" color="primary" class="ion-padding" [disabled]="disabled">
+        MODIFICAR
+      </ion-button></ion-col>
+      <ion-col size="6"><ion-button (click)="presentAlert()" expand="block" shape="round" color="danger" class="ion-padding" [disabled]="disabled">
+        ELIMINAR
+      </ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-footer>

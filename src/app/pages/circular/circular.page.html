@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Circulares (Detalle)</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ng-container *ngFor="let circular of circular">
+    <ion-img src="{{ circular.imagen }}"></ion-img>
+
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="6"></ion-col>
+        <ion-col size="6">
+          <ion-button expand="full" href="{{ circular.link }}">
+            <ion-icon slot="icon-only" name="document-outline" class="ion-padding-end"></ion-icon>
+            Ver
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6"></ion-col>
+        <ion-col size="6">
+          <ion-button expand="full" href="{{ circular.descarga }}">
+            <ion-icon slot="icon-only" name="cloud-download-outline" class="ion-padding-end"></ion-icon>
+            Descargar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="ion-padding">
+      <ion-label class="ion-padding-top, ion-padding-start">{{ circular.titulo }}</ion-label><br>
+      <ion-label class="ion-padding-start">{{ circular.fecha_publicacion }} {{circular.hora_publicacion}}</ion-label><br>
+      <ion-label class="ion-padding-start">{{ circular.descripcion}}</ion-label>
+    </div>
+    <div class="ion-text-center">
+      <ion-label><b>{{ circular.requiere_autorizacion }}</b></ion-label>
+    </div>
+  </ng-container>
+
+</ion-content>

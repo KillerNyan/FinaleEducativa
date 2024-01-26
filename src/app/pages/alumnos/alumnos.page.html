@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Alumnos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="ion-padding">
+    <ion-card-title> {{ gradoDesc }} Sección: {{ seccionDesc }} </ion-card-title>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let alumno of alumnos; let i = index" detail (click)="verDetalleAlumnos(i)">
+      <ion-avatar slot="start">
+        <img src="{{ alumno.url_foto }}" />
+      </ion-avatar>
+      <ion-label> {{ alumno.nombre }} </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

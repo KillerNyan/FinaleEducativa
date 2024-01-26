@@ -1,0 +1,136 @@
+<ion-menu side="start" menuId="menu" contentId="main" mode="md">
+  <ion-header>
+    <ion-toolbar class="menu" color="primary">
+      <ion-title class="ion-text-center"> MENÚ </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="menu-content">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+          <ion-item>
+            <img src="{{ foto }}" width="200px" height="200px" style="border-radius: 100%;" slot="start" class="img">
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2"></ion-col>
+        <ion-col size="8">
+          <div class="ion-text-center" style="font-size: 25px;">
+            <ion-label><b>{{ nombre }}</b></ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="2"></ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <ion-menu-toggle>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item routerLink="/tab-hijos">
+            <ion-icon name="home-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Inicio</ion-label>
+          </ion-item>
+          <!-- <ion-item (click)="verCalendario()">
+            <ion-icon name="calendar-number-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Calendario</ion-label>
+          </ion-item> -->
+          <!-- <ion-item (click)="verVideoClases()">
+            <ion-icon name="videocam-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">VideoClases</ion-label>
+          </ion-item> -->
+          <ion-item (click)="verActividades()">
+            <ion-icon name="calendar-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Actividades</ion-label>
+          </ion-item>
+          <!-- <ion-item (click)="verNotas()">
+            <ion-icon name="ribbon-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Notas</ion-label>
+          </ion-item> -->
+          <!-- <ion-item (click)="verEvaluaciones()">
+            <ion-icon name="checkbox-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Evaluaciones</ion-label>
+          </ion-item> -->
+          <!-- <ion-item (click)="verNotificaciones()">
+            <ion-icon name="notifications-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Notificaciones</ion-label>
+          </ion-item> -->
+          <ion-item (click)="verSoporte()">
+            <ion-icon name="settings-outline" slot="start" color="primary"></ion-icon>
+            <ion-label color="primary">Soporte Técnico</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-menu-toggle>
+  </ion-content>
+  
+  <ion-footer>
+    <ion-menu-toggle>
+      <ion-toolbar>
+        <ion-buttons slot="end" mode="ios" class="item-padding-salir">
+          <ion-button color="dark" (click)="logOut()">
+            <ion-icon slot="start" name="power-outline" class="icon-menu"></ion-icon>
+            <ion-note>Salir</ion-note>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-menu-toggle>
+  </ion-footer>
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar color="primary" id="main">
+
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu" class="icon-menu"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-capitalize"> Inicio </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <ion-tabs>
+
+      <ion-tab-bar slot="top" class="ion-padding">
+        <!-- <ion-tab-button tab="noticias" (click)="ocultarHome()">
+          <ion-icon aria-hidden="true" name="home"></ion-icon>
+        </ion-tab-button> -->
+
+        <ion-tab-button tab="multimedia-hijos" (click)="ocultarHome()">
+          <ion-icon aria-hidden="true" name="images"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button tab="circulares-hijos" (click)="ocultarHome()">
+          <ion-icon aria-hidden="true" name="document-text"></ion-icon>
+        </ion-tab-button>
+      </ion-tab-bar>
+
+    </ion-tabs>
+  </div>
+
+  <ng-container *ngIf="mostrarHome">
+    <div>
+      <br><br><br>
+      <ion-img src="{{ logo }}" class="ion-padding"></ion-img>
+
+      <!-- <div class="ion-text-center ion-padding">
+        <ion-label class="ion-padding" color="primary">Te diriges a las videoclases?</ion-label>
+      </div>
+
+      <div class="ion-text-center">
+        <ion-button size="small" shape="round">
+          Ir a videoclases 
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+      </div> -->
+    </div>
+  </ng-container>
+
+</ion-content>

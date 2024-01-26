@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Finale Educativa</string>
+    <string name="title_activity_main">Finale Educativa</string>
+    <string name="package_name">com.farasi.finale</string>
+    <string name="custom_url_scheme">com.farasi.finale</string>
+</resources>

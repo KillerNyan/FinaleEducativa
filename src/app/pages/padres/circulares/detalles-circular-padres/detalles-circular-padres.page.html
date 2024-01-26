@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>CIRCULARES</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngFor="let circular of circulares">
+    <ion-img src="{{ circular.imagen }}"></ion-img>
+
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="6"></ion-col>
+        <ion-col size="6">
+          <ion-button href="{{ circular.link }}" expand="full">
+            <ion-icon slot="icon-only" name="document-outline" class="ion-padding-end"></ion-icon>
+            Ver
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6"></ion-col>
+        <ion-col size="6">
+          <ion-button href="{{ circular.descarga }}" expand="full">
+            <ion-icon slot="icon-only" name="cloud-download-outline" class="ion-padding-end"></ion-icon>
+            Descargar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="ion-padding">
+      <ion-label class="ion-padding-top, ion-padding-start">{{ circular.titulo }}</ion-label><br>
+      <ion-label class="ion-padding-start">{{ circular.fecha_publicacion }} {{
+        circular.hora_publicacion}}</ion-label><br>
+      <ion-label class="ion-padding-start">{{ circular.descripcion}}</ion-label>
+    </div>
+    <ng-container *ngIf="circular.requiere_autorizacion">
+      <ng-container *ngIf="circular.status_autorizacion == true">
+        <div class="ion-text-center">
+          <ion-label color="success">{{ circular.texto_autorizacion }}</ion-label>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="circular.status_autorizacion == false">
+        <div class="ion-text-center">
+          <ion-label color="danger">{{ circular.texto_autorizacion }}</ion-label>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="circular.status_autorizacion == null">
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button (click)="autorizar(1)" expand="block" shape="round">
+                Autorizar
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button (click)="autorizar(2)" expand="block" shape="round">
+                No Autorizar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="!circular.requiere_autorizacion">
+      <div class="ion-text-center">
+        <ion-label color="medium">{{ circular.texto_autorizacion }}</ion-label>
+      </div>
+    </ng-container>
+  </ng-container>
+
+</ion-content>

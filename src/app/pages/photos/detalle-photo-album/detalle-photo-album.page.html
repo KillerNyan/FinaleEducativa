@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Photo Album (Detalle)</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngFor="let detalle of detalles">
+    <div class="ion-padding">
+      <ion-label color="primary"><b>Descripción del Photo Album:</b></ion-label>
+    </div>
+    <div class="ion-padding">
+      <ion-label>{{ detalle.texto }}</ion-label>
+    </div>
+    <div class="ion-padding">
+      <ion-label color="primary"><b>Fecha del Photo Album:</b></ion-label>
+    </div>
+    <div class="ion-padding">
+      <ion-label>{{ detalle.fecha }}</ion-label>
+    </div>
+
+    <div class="ion-padding">
+      <div class="ion-padding-bottom">
+        <ion-label color="primary"><b>Fotografías:</b></ion-label>
+      </div>
+      <swiper-container>
+        <swiper-slide *ngFor="let imagen of detalle.imagenes" (click)="verImgs()">
+          <img src="{{ imagen.foto }}" style="height: 300px; width: 100%;">
+        </swiper-slide>
+      </swiper-container>
+    </div>
+  </ng-container>
+  
+</ion-content>

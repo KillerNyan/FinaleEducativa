@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Tareas</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" shape="round" color="light" id="filtroTareas">
+          <ion-icon slot="icon-only" name="filter-outline" class="ion-padding-end"></ion-icon>
+          Filtro
+        </ion-button>
+        <ion-popover trigger="filtroTareas" triggerAction="click" size="auto" [dismissOnSelect]="true">
+          <ng-template>
+            <ion-content class="ion-padding">
+              <ion-list>
+                <ion-item (click)="filtro('')">Todos</ion-item>
+                <ion-item (click)="filtro('Pendiente de Calificar')">Pendiente de Calificar</ion-item>
+                <ion-item (click)="filtro(' respuesta enviada')">Respuesta Enviada</ion-item>
+                <ion-item (click)="filtro('Calificada')">Calificada</ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-col>
+      <ion-col size="6"></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ng-container *ngFor="let tarea of tareas; let i = index">
+    <ng-container *ngIf="filtrarTarea">
+      <ng-container *ngIf="tarea.situacion == filtroSituacion">
+        <ion-card (click)="verTarea(i)">
+          <ion-card-content>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="2">
+                  <ion-avatar>
+                    <img src="{{ tarea.url_logo }}" style="height: 75px; width: 75px;" />
+                  </ion-avatar>
+                </ion-col>
+                <ion-col size="8">
+                  <div>
+                    <ion-text color="primary">
+                      <h2><b>{{ tarea.materia }}</b></h2>
+                    </ion-text>
+                    <ion-card-subtitle>{{ tarea.titulo }}</ion-card-subtitle>
+                  </div>
+                  <div *ngIf="situacion( tarea.situacion )">
+                    <ion-chip color="{{ color }}" class="ion-text-capitalize">{{ tarea.situacion }}</ion-chip>
+                  </div>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-button>
+                    <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="!filtrarTarea">
+      <ion-card (click)="verTarea(i)">
+        <ion-card-content>
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="2">
+                <ion-avatar>
+                  <img src="{{ tarea.url_logo }}" style="height: 75px; width: 75px;" />
+                </ion-avatar>
+              </ion-col>
+              <ion-col size="8">
+                <div>
+                  <ion-text color="primary">
+                    <h2><b>{{ tarea.materia }}</b></h2>
+                  </ion-text>
+                  <ion-card-subtitle>{{ tarea.titulo }}</ion-card-subtitle>
+                </div>
+                <div *ngIf="situacion( tarea.situacion )">
+                  <ion-chip color="{{ color }}" class="ion-text-capitalize">{{ tarea.situacion }}</ion-chip>
+                </div>
+              </ion-col>
+              <ion-col size="2">
+                <ion-button>
+                  <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+  </ng-container>
+
+</ion-content>

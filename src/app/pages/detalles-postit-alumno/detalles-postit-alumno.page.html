@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Post It</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="ion-padding">
+    <ion-label color="primary"><b>Título del Post It:</b></ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-input color="medium" value="{{ titulo }}" [disabled]="disabled"></ion-input>
+  </div>
+  <div class="ion-padding">
+    <ion-label color="primary"><b>Descripción del Post It:</b></ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-textarea color="medium" value="{{ descripcion }}" [disabled]="disabled"></ion-textarea>
+  </div>
+  <div class="ion-padding">
+    <ion-label color="primary"><b>Fecha del Post It:</b></ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-label color="medium">{{ fecha }}</ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-label color="primary"><b>Maestro:</b></ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-label color="medium">{{ maestro }}</ion-label>
+  </div>
+
+</ion-content>

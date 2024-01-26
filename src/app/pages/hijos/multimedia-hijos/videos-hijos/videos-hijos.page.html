@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Videos</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" shape="round" color="light" id="tipo">
+          <ion-icon slot="icon-only" name="filter-outline" class="ion-padding-end"></ion-icon>
+          Tipo:
+        </ion-button>
+        <ion-popover trigger="tipo" triggerAction="click" size="auto" [dismissOnSelect]="true">
+          <ng-template>
+            <ion-content class="ion-padding">
+              <ion-list>
+                <ion-item (click)="filtroTipo('')">Todos</ion-item>
+                <ion-item (click)="filtroTipo('0')">Otros</ion-item>
+                <ion-item (click)="filtroTipo('1')">Educativo y/o Pedagógico</ion-item>
+                <ion-item (click)="filtroTipo('2')">Motivacional</ion-item>
+                <ion-item (click)="filtroTipo('3')">Interesante</ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-button expand="block" shape="round" color="light" id="categoria">
+          <ion-icon slot="icon-only" name="filter-outline" class="ion-padding-end"></ion-icon>
+          Categoría:
+        </ion-button>
+        <ion-popover trigger="categoria" triggerAction="click" size="auto" [dismissOnSelect]="true">
+          <ng-template>
+            <ion-content class="ion-padding">
+              <ion-list>
+                <ion-item (click)="filtroCategoria('')">Todos</ion-item>
+                <ion-item (click)="filtroCategoria('0')">Otros</ion-item>
+                <ion-item (click)="filtroCategoria('1')">Para Padres</ion-item>
+                <ion-item (click)="filtroCategoria('2')">Para Alumnos</ion-item>
+                <ion-item (click)="filtroCategoria('3')">Actividades Internas</ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card *ngFor="let video of videos; let i = index" (click)="verDetalleVideo(i)">
+    <ion-card-header>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="3">
+            <ion-avatar>
+              <img src="{{ video.url_logo}}" />
+            </ion-avatar>
+          </ion-col>
+          <ion-col size="9">
+            <ion-card-title>Colegio ASMS</ion-card-title>
+            <ion-card-subtitle>ASMS</ion-card-subtitle>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="ion-padding">
+        <ion-card-subtitle>{{ video.titulo }}</ion-card-subtitle>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)" disabled="{{ scroll }}">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

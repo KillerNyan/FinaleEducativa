@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Post It</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="ion-padding">
+    <ion-card-title> {{ nombre }} </ion-card-title>
+  </ion-card>
+
+  <ng-container *ngFor="let fecha of postits">
+    <ion-item-divider color="light" class="cssItem">
+      <ion-label>Notas del {{ fecha.fecha }}</ion-label>
+    </ion-item-divider>
+    <ng-container>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="6" *ngFor="let postit of postits; let i = index">
+            <div class="color1" (click)="detallePostit(i)">
+              <label class="textfechalit">{{ postit.fecha }}</label>
+              <br>
+              <label class="textTitulo biography2">{{ postit.titulo }}</label>
+              <div class="biography">{{ postit.descripcion }}</div>
+              <label class="textPara">De:</label>
+              <br>
+              <label class="textCodigo"> {{ postit.maestro }} </label>
+              <br>
+              <label class="textPara">{{ postit.seccion }}</label>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
+  </ng-container>
+
+</ion-content>
