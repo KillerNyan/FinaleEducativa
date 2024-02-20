@@ -5,6 +5,10 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="recarga($event)">
+    <ion-refresher-content refreshing-spinner="crescent"></ion-refresher-content>
+  </ion-refresher>
   
   <ion-item *ngFor="let notificacion of notificaciones; let i = index" (click)="verNotificaciones(i)">
     <ion-col size="2">

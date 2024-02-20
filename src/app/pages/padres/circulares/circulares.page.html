@@ -6,6 +6,10 @@
 
 <ion-content>
 
+  <ion-refresher slot="fixed" (ionRefresh)="recarga($event)">
+    <ion-refresher-content refreshing-spinner="crescent"></ion-refresher-content>
+  </ion-refresher>
+
   <ion-item *ngFor="let circular of circulares; let i = index" (click)="verCircular(i)">
     <ion-col size="2">
       <ion-avatar item-start>

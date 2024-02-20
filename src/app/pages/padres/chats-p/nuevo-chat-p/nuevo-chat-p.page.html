@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Nuevo Chat</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngFor="let maestro of maestros; let i = index">
+    <ion-card (click)="crearChat(i)">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="2">
+            <div style="margin-top: 5px;">
+              <ion-avatar item-start>
+                <img src="{{ maestro.url_foto }}" style="width: 80%;">
+              </ion-avatar>
+            </div>
+          </ion-col>
+          <ion-col size="9">
+            <label>
+              <p style="margin-bottom: -9px;"><b> {{ maestro.nombre }} </b></p>
+              <p> Horario de atención: {{ maestro.hora_inicio }} - {{ maestro.hora_final }} </p>
+            </label>
+          </ion-col>
+          <ion-col size="1">
+            <div style="margin-top: 20px;">
+              <ion-icon name="arrow-forward" size="large"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </div>
+
+</ion-content>

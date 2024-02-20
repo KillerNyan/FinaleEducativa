@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>{{ padre }}</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cuerpoChat">
+
+  <div #chatContainer class="contenedor-mensajes">
+    <div *ngFor="let mensaje of mensajes" >
+      <div [ngClass]="{'mensaje-enviado': mensaje.clase === 'enviado', 'mensaje-recibido': mensaje.clase === 'recibido'}" *ngIf="!mensaje.isArchivo">
+          {{ mensaje.mensaje }}
+        <div class="tiempo">{{ mensaje.registrado }}</div>
+      </div>
+  
+      <div [ngClass]="{'mensaje-enviado': mensaje.clase === 'enviado', 'mensaje-recibido': mensaje.clase === 'recibido'}" *ngIf="mensaje.isArchivo">
+          <img [src]="mensaje.mensaje" style="border-radius: 10px;" *ngIf="mensaje.extension == 'jpg'">
+          <ion-icon slot="start" name="document-attach" style="zoom: 6;" *ngIf="mensaje.extension == 'pdf'" color="medium"></ion-icon>
+          <!-- <ion-icon slot="start" name="document-attach" style="zoom: 6;" *ngIf="mensaje.extension == 'pdf'" color="medium" (click)="mostrarModalPDF(mensaje.message)"></ion-icon> -->
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item style="border-radius: 15px;">
+      <ion-textarea type="text" placeholder="Escribe un mensaje..." autoGrow="true" [(ngModel)]="message"></ion-textarea>
+    </ion-item>
+    <ion-buttons slot="end">
+      <ion-button (click)="enviarMessage()">
+        <ion-icon slot="start" name="send"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -6,6 +6,7 @@ import { DetallesCircularPadresPage } from '../circulares/detalles-circular-padr
 import { DetallesPostitPadresPage } from '../pinboard/detalles-postit-padres/detalles-postit-padres.page';
 import { DetallesPhAlPadrePage } from '../multimedia/photo-album-padres/detalles-ph-al-padre/detalles-ph-al-padre.page';
 import { DetalleTareaPadresPage } from '../tareas-hijos/tareas-pend-padres/detalle-tarea-padres/detalle-tarea-padres.page';
+import { MensajesPPage } from '../chats-p/mensajes-p/mensajes-p.page';
 
 @Component({
   selector: 'app-notificaciones',
@@ -29,18 +30,31 @@ export class NotificacionesPage implements OnInit {
 
   async ngOnInit() {
     this.datosUsuario = await this.strg.get('datos');
-    this.codigo = this.datosUsuario.tipo_codigo;
+    this.codigo = this.datosUsuario.codigo;
     this.tipoUsu = this.datosUsuario.tipo_usuario;
     (await this.asmsSrvc.getNotificaciones(this.codigo, this.tipo, this.alumno, this.page)).subscribe((notificaciones: any) => {
       if(Object.prototype.toString.call(notificaciones) === '[object Array]'){
         this.notificaciones = notificaciones;
       }
+      console.log(notificaciones, "Hola");
     });
     (await this.asmsSrvc.getHijos(this.tipoUsu, this.codigo)).subscribe((hijos: any) => {
       if(Object.prototype.toString.call(hijos) === '[object Array]'){
         this.hijos = hijos;
       }
     });
+  }
+
+  recarga(event: any) {
+    setTimeout(async () => {
+      (await this.asmsSrvc.getNotificaciones(this.codigo, this.tipo, this.alumno, this.page)).subscribe((notificaciones: any) => {
+        if (Object.prototype.toString.call(notificaciones) === '[object Array]') {
+          this.notificaciones = notificaciones;
+          console.log(notificaciones);
+        }
+      });
+      event.target.complete();
+    }, 2000);
   }
 
   async verNotificaciones(pos: any) {
@@ -84,6 +98,20 @@ export class NotificacionesPage implements OnInit {
           codigo,
           hijo,
           status,
+        }
+      });
+      await pagina.present();
+      this.notificaciones[pos].clase = "leida";
+    } else if (this.notificaciones[pos].categoria == "Chat") {
+      const maestro = this.notificaciones[pos].nombre;
+      const chat = this.notificaciones[pos].item_id;
+      const codigo = this.codigo;
+      const pagina = await this.modalCtrl.create({
+        component: MensajesPPage,
+        componentProps: {
+          maestro,
+          chat,
+          codigo,
         }
       });
       await pagina.present();

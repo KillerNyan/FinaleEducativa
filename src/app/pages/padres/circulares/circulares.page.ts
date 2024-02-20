@@ -42,6 +42,17 @@ export class CircularesPage implements OnInit {
     });
   }
 
+  recarga(event: any) {
+    setTimeout(async () => {
+      (await this.asmsSrvc.getCircularesPadre(this.codigoHijos, this.codigoPadre, this.page)).subscribe((circulares: any) => {
+        if(Object.prototype.toString.call(circulares) === '[object Array]'){
+          this.circulares = circulares;
+        }
+      });
+      event.target.complete();
+    }, 2000);
+  }
+
   async verCircular(pos: any) {
     const codigo = this.circulares[pos].codigo
     const pagina = await this.modalCtrl.create({

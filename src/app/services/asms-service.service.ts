@@ -24,8 +24,11 @@ export class AsmsServiceService {
   }
 
   async getActividad<T>(codigo: any){
-    this.datosActividad = await this.storage.get('datos');
     return this.http.get<T>(`${asmsURL}API_gestor_actividades.php?request=actividad&codigo=${codigo}`);
+  }
+
+  async registrarDispositivo<T>(device_id: any, device_token: any, device_type: any, codigo: any){
+    return this.http.get<T>(`${asmsURL}API_pushup_notification.php?request=register&user_id=${codigo}&device_id=${device_id}&device_token=${device_token}&device_type=${device_type}&certificate_type=0`);
   }
 
   async getSecciones<T>() {
@@ -123,6 +126,14 @@ export class AsmsServiceService {
     return this.http.get<T>(`${asmsURL}API_contactanos.php?request=contactanos&data=${JSON.stringify(data)}`);
   }
 
+  async getSeccionesChat<T>(tipoUsu: any, codigo: any) {
+    return this.http.get<T>(`${asmsURL}API_chat.php?request=usuarios_secciones&tipo=${tipoUsu}&codigo=${codigo}`);
+  }
+
+  async getPadresChat<T>(nivel: any, grado: any, seccion: any) {
+    return this.http.get<T>(`${asmsURL}API_chat.php?request=padres&nivel=${nivel}&grado=${grado}&seccion=${seccion}`);
+  }
+
   //API's Padres
 
   async getImagenes<T>() {
@@ -203,6 +214,30 @@ export class AsmsServiceService {
 
   async getDocsTareaPadres<T>(codigo: any) {
     return this.http.get<T>(`${asmsURL}API_tareas.php?request=tarea_archivo&codigo=${codigo}`);
+  }
+
+  async getChatsPadres<T>(codigo: any, tipoUsu: any) {
+    return this.http.get<T>(`${asmsURL}API_chat.php?request=lista_dialogos&usuario=${codigo}&tipo_usuario=${tipoUsu}`);
+  }
+
+  async getMensajesChatsPadres<T>(codigo: any, chat: any) {
+    return this.http.get<T>(`${asmsURL}API_chat.php?request=lista_mensajes&dialogo=${chat}&usuario=${codigo}`);
+  }
+
+  async postMensajesChatsPadres<T>(tipoUsuP: any, codigoP: any, tipoUsuMD: any, codigoMD: any, mensaje: any) {
+    const fd = new FormData();
+    fd.append('image', mensaje);
+    return this.http.post<T>(`${asmsURL}API_chat.php?request=nuevo_dialogo&sender_type=${tipoUsuP}&sender=${codigoP}&receiver_type=${tipoUsuMD}&receiver=${codigoMD}&message=${mensaje}`, fd);
+  }
+
+  async postEnvioMensajesChatsPadres<T>(dialogo: any, codigo: any, tipoUsu: any, mensaje: any) {
+    const fd = new FormData();
+    fd.append('image', mensaje);
+    return this.http.post<T>(`${asmsURL}API_chat.php?request=enviar&dialogo=${dialogo}&sender_type=${tipoUsu}&sender=${codigo}&message=${mensaje}`, fd);
+  }
+
+  async getMaestrosChatPadres<T>(codigo: any) {
+    return this.http.get<T>(`${asmsURL}API_chat.php?request=usuarios&cui=${codigo}`);
   }
   
   //API's Hijos

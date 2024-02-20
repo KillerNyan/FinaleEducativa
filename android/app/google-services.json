@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "885086098465",
+    "project_id": "finale-educativa",
+    "storage_bucket": "finale-educativa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885086098465:android:857c5c58e6bf03d92cff60",
+        "android_client_info": {
+          "package_name": "com.farasi.finale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdUNS8ium1E5GpgElZjUCQhKekR8yscJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
