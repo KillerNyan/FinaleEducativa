@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AsmsServiceService } from 'src/app/services/asms-service.service';
 import { ModalController } from '@ionic/angular';
 import { MateriasPage } from '../materias/materias.page';
@@ -11,6 +11,7 @@ import { MateriasPage } from '../materias/materias.page';
 export class TareasPage implements OnInit {
 
   secciones: any[] = [];
+  @Input() imgAlumnos: string = '';
 
   constructor( private asmsSrvc: AsmsServiceService, private modalCtrl: ModalController ) { }
 

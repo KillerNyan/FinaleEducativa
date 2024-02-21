@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AsmsServiceService } from 'src/app/services/asms-service.service';
 import { PostitPage } from '../postit/postit.page';
@@ -11,6 +11,7 @@ import { PostitPage } from '../postit/postit.page';
 export class PostSecPage implements OnInit {
 
   secciones: any[] = [];
+  @Input() imgAlumnos: string = '';
 
   constructor( private asmsSrvc: AsmsServiceService, private modalCtrl: ModalController ) { }
 

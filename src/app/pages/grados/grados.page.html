@@ -95,7 +95,7 @@
 
 <ion-content class="ion-padding">
 
-  <ion-card *ngFor="let seccion of secciones; let i = index" (click)='verAlumnos(i)'>
+  <ion-card *ngFor="let seccion of secciones; let i = index" (click)='verAlumnos(i)' style="background-image: url({{imgAlumnos}});">
     <ion-card-title color="light"> {{ seccion.grado_descripcion }} Sección: {{ seccion.seccion_descripcion }} </ion-card-title>
   </ion-card>
 

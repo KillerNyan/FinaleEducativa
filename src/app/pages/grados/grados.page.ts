@@ -24,6 +24,7 @@ export class GradosPage implements OnInit {
   secciones: any[] = [];
   imagenes: any[] = [];
   logo: string = '';
+  imgAlumnos: string = '';
 
   constructor(private asmsSrvc: AsmsServiceService, private modalCtrl: ModalController, private storage: Storage, private navCtrl: NavController) { }
 
@@ -40,6 +41,7 @@ export class GradosPage implements OnInit {
     (await this.asmsSrvc.getImagenes()).subscribe((imagenes: any) => {
       this.imagenes = imagenes;
       this.logo = imagenes.data.logo;
+      this.imgAlumnos = imagenes.data.alumnos;
     });
   }
 
@@ -72,22 +74,34 @@ export class GradosPage implements OnInit {
   }
 
   async verTareas() {
+    const imgAlumnos = this.imgAlumnos;
     const pagina = await this.modalCtrl.create({
       component: TareasPage,
+      componentProps: {
+        imgAlumnos,
+      }
     })
     await pagina.present();
   }
 
   async verPostit() {
+    const imgAlumnos = this.imgAlumnos;
     const pagina = await this.modalCtrl.create({
       component: PostSecPage,
+      componentProps: {
+        imgAlumnos,
+      }
     })
     await pagina.present();
   }
 
   async verCalificaciones() {
+    const imgAlumnos = this.imgAlumnos;
     const pagina = await this.modalCtrl.create({
       component: CalificacionesPage,
+      componentProps: {
+        imgAlumnos,
+      }
     })
     await pagina.present();
   }
