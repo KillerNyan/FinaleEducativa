@@ -1,0 +1,255 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ng-container *ngIf="tipo === '7'">
+      <ion-title>Reportes de Pañal</ion-title>
+    </ng-container>
+    <ng-container *ngIf="tipo === '8'">
+      <ion-title>Reportes de Golpe</ion-title>
+    </ng-container>
+    <ng-container *ngIf="tipo === '9'">
+      <ion-title>Reportes de Enfermedad</ion-title>
+    </ng-container>
+    <ng-container *ngIf="tipo === '10'">
+      <ion-title>Reportes de Conducta</ion-title>
+    </ng-container>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-padding-bottom">
+    <ion-grid fixed class="ion-padding-bottom">
+      <ion-row>
+        <ion-col size="4">
+          <ion-avatar>
+            <ion-img src="{{ foto }}"
+              style="height: 100px; width: 100px; margin-top: 10px; margin-left: 10px;"></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="8" style="margin-top: 15px;">
+          <label style="font-size: 25px;"><b>{{ nombre }}</b></label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Tipo 7 Corresponde a Tipo de Pañal -->
+  <div *ngIf="tipo === '7'" class="ion-padding-top">
+
+    <div class="ion-padding">
+      <div class="ion-padding-top">
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-input type="text" placeholder="0" label="Cambios por Pipi:" labelPlacement="floating" [(ngModel)]="pipi"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-input type="text" label="Cambios por Pipi:" labelPlacement="floating" [(ngModel)]="pipi"></ion-input>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-input type="text" placeholder="0" label="Cambios por Popo:" labelPlacement="floating" [(ngModel)]="popo"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-input type="text" label="Cambios por Popo:" labelPlacement="floating" [(ngModel)]="popo"></ion-input>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-input type="text" placeholder="Normal" label="Consistencia del Popo:" labelPlacement="floating" [(ngModel)]="consistencia"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-input type="text" label="Consistencia del Popo:" labelPlacement="floating" [(ngModel)]="consistencia"></ion-input>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-textarea type="text" placeholder="Observaciones" label="Observaciones:" labelPlacement="floating" [(ngModel)]="observaciones" autoGrow="true"></ion-textarea>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-textarea type="text" label="Observaciones:" labelPlacement="floating" [(ngModel)]="observaciones" autoGrow="true"></ion-textarea>
+          </ng-container>
+        </ion-item>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tipo 8 Corresponde a Tipo de Golpe -->
+  <div *ngIf="tipo === '8'" class="ion-padding-top">
+
+    <div class="ion-padding">
+      <div class="ion-padding-top">
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-input type="text" placeholder="El patio" label="Lugar del Incidente:" labelPlacement="floating" [(ngModel)]="lugar"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-input type="text" label="Lugar del Incidente:" labelPlacement="floating" [(ngModel)]="lugar"></ion-input>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-input type="text" placeholder="12:00" label="Hora del Incidente:" labelPlacement="floating" [(ngModel)]="hora"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-input type="text" label="Hora del Incidente:" labelPlacement="floating" [(ngModel)]="hora"></ion-input>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-textarea type="text" placeholder="Descripción" label="Descripción del Incidente:" labelPlacement="floating" [(ngModel)]="descripcion" autoGrow="true"></ion-textarea>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-textarea type="text" label="Descripción del Incidente:" labelPlacement="floating" [(ngModel)]="descripcion" autoGrow="true"></ion-textarea>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-textarea type="text" placeholder="Medidas" label="Medidas Tomadas:" labelPlacement="floating" [(ngModel)]="medida" autoGrow="true"></ion-textarea>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-textarea type="text" label="Medidas Tomadas:" labelPlacement="floating" [(ngModel)]="medida" autoGrow="true"></ion-textarea>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-textarea type="text" placeholder="Dosis" label="Dosis Brindadas:" labelPlacement="floating" [(ngModel)]="dosis" autoGrow="true"></ion-textarea>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-textarea type="text" label="Dosis Brindadas:" labelPlacement="floating" [(ngModel)]="dosis" autoGrow="true"></ion-textarea>
+          </ng-container>
+        </ion-item>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tipo 9 Corresponde a Tipo de Enfermedad -->
+  <div *ngIf="tipo === '9'" class="ion-padding-top">
+
+    <div class="ion-padding">
+      <div class="ion-padding-top">
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-input type="text" placeholder="Síntomas" label="Síntomas:" labelPlacement="floating" [(ngModel)]="sintomas"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-input type="text" label="Síntomas:" labelPlacement="floating" [(ngModel)]="sintomas"></ion-input>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-input type="text" placeholder="12:00" label="Hora:" labelPlacement="floating" [(ngModel)]="hora"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-input type="text" label="Hora:" labelPlacement="floating" [(ngModel)]="hora"></ion-input>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-input type="text" placeholder="A papá y/o mamá" label="Se le avisó a:" labelPlacement="floating" [(ngModel)]="aviso"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-input type="text" label="Se le avisó a:" labelPlacement="floating" [(ngModel)]="aviso"></ion-input>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-input type="text" placeholder="Uso de X Medicamento" label="Medidas Tomadas:" labelPlacement="floating" [(ngModel)]="medida"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-input type="text" label="Medidas Tomadas:" labelPlacement="floating" [(ngModel)]="medida"></ion-input>
+          </ng-container>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-input type="text" placeholder="1 Dosis" label="Dosis Brindadas:" labelPlacement="floating" [(ngModel)]="dosis"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-input type="text" label="Dosis Brindadas:" labelPlacement="floating" [(ngModel)]="dosis"></ion-input>
+          </ng-container>
+        </ion-item>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tipo 10 Corresponde a Tipo de Conducta -->
+  <div *ngIf="tipo === '10'" class="ion-padding-top">
+    <div class="ion-padding">
+      <div class="ion-padding">
+        <ion-label><b>El alumno se Portó:</b></ion-label>
+      </div>
+      <div class="ion-padding-start">  
+        <ion-radio-group value="{{ comportamiento }}">
+          <ion-item class="ion-padding-start ion-padding-end">
+            <ion-radio value="1" labelPlacement="end" (click)="calificaciones('1')">Muy Bien</ion-radio>
+          </ion-item>
+          <ion-item class="ion-padding-start ion-padding-end">
+            <ion-radio value="2" labelPlacement="end" (click)="calificaciones('2')">Bien</ion-radio>
+          </ion-item>
+          <ion-item class="ion-padding-start ion-padding-end">
+            <ion-radio value="3" labelPlacement="end" (click)="calificaciones('3')">Regular</ion-radio>
+          </ion-item>
+          <ion-item class="ion-padding-start ion-padding-end">
+            <ion-radio value="4" labelPlacement="end" (click)="calificaciones('4')">Debo Mejorar</ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item>
+          <ng-container *ngIf="nuevo">
+            <ion-textarea type="text" placeholder="Observaciones" label="Observaciones:" labelPlacement="floating" [(ngModel)]="observaciones" autoGrow="true"></ion-textarea>
+          </ng-container>
+          <ng-container *ngIf="modificar">
+            <ion-textarea type="text" label="Observaciones:" labelPlacement="floating" [(ngModel)]="observaciones" autoGrow="true"></ion-textarea>
+          </ng-container>
+        </ion-item>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ion-padding">
+    <ng-container *ngIf="nuevo">
+      <ion-button (click)="crearReporte()" expand="block" shape="round">
+        Enviar
+      </ion-button>
+    </ng-container>
+    <ng-container *ngIf="modificar">
+      <ion-button (click)="editarReporte()" expand="block" shape="round">
+        Editar
+      </ion-button>
+    </ng-container>
+  </div>
+
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Notificaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="recarga($event)">
+    <ion-refresher-content refreshing-spinner="crescent"></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-item *ngFor="let notificacion of notificaciones; let i = index" (click)="verNotificaciones(i)">
+    <ion-col size="2">
+      <ion-avatar item-start>
+        <img src="{{notificacion.url_logo}}">
+      </ion-avatar>
+    </ion-col>
+    <ion-col size="9">
+      <label class="{{notificacion.clase}}">
+        <p style="margin-bottom: -9px; margin-top: -9px;"> {{notificacion.created_at}} </p>
+        <p style="margin-bottom: -9px;" class="items"> {{notificacion.message}} </p>
+        <p style="margin-bottom: -9px;"> {{notificacion.categoria}} </p>
+      </label>
+    </ion-col>
+    <ion-col size="1">
+      <ion-icon name="arrow-forward" size="large"></ion-icon>
+    </ion-col>
+  </ion-item>
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)" disabled="{{ scroll }}">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
+</ion-content>

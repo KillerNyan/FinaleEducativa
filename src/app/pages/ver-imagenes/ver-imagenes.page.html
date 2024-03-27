@@ -1,25 +1,9 @@
 <ion-content class="transparent-modal" [fullscreen]="true">
 
-  <swiper-container *ngIf="photo">
-    <swiper-slide *ngFor="let img of photos[0]; let i = index">
+  <swiper-container>
+    <swiper-slide>
       <div class="swiper-zoom-container">
-          <img src="{{ img.foto }}" style="height: 300px; width: 100%;">
-      </div>
-    </swiper-slide>
-  </swiper-container>
-  
-  <swiper-container *ngIf="imagen">
-    <swiper-slide *ngFor="let img of photos; let i = index">
-      <div class="swiper-zoom-container">
-          <img src="{{ img.imagen_url }}" style="height: 300px; width: 100%;">
-      </div>
-    </swiper-slide>
-  </swiper-container>
-
-  <swiper-container *ngIf="imagenP">
-    <swiper-slide *ngFor="let img of photos[0]; let i = index">
-      <div class="swiper-zoom-container">
-          <img src="{{ img.imagen_url }}" style="height: 300px; width: 100%;">
+        <img src="{{ img }}" style="height: 100%; width: 100%;">
       </div>
     </swiper-slide>
   </swiper-container>
@@ -37,30 +21,12 @@
             Cerrar
           </ion-button>
         </ion-col>
-        <ng-container *ngIf="photo">
-          <ion-col size="6" class="ion-text-center">
-            <ion-button (click)="descargar(photos[0])" fill="clear" color="light">
-              <ion-icon slot="start" name="download" color="light"></ion-icon>
-              Descargar
-            </ion-button>
-          </ion-col>
-        </ng-container>
-        <ng-container *ngIf="imagen">
-          <ion-col size="6" class="ion-text-center">
-            <ion-button (click)="descargar2(photos)" fill="clear" color="light">
-              <ion-icon slot="start" name="download" color="light"></ion-icon>
-              Descargar
-            </ion-button>
-          </ion-col>
-        </ng-container>
-        <ng-container *ngIf="imagenP">
-          <ion-col size="6" class="ion-text-center">
-            <ion-button (click)="descargar2(photos[0])" fill="clear" color="light">
-              <ion-icon slot="start" name="download" color="light"></ion-icon>
-              Descargar
-            </ion-button>
-          </ion-col>
-        </ng-container>
+        <ion-col size="6" class="ion-text-center">
+          <ion-button (click)="descargar()" fill="clear" color="light">
+            <ion-icon slot="start" name="download" color="light"></ion-icon>
+            Descargar
+          </ion-button>
+        </ion-col>
       </ion-row>
     </ion-grid>
 

@@ -10,7 +10,7 @@ import { DetalleTareaHijosPage } from './detalle-tarea-hijos/detalle-tarea-hijos
 })
 export class ActividadesHijosPage implements OnInit {
 
-  @Input() codigoAlumno: string = '';
+  @Input() codigo: string = '';
   tareas: any[] = [];
   color: string = '';
   filtrarTarea: boolean = false;
@@ -19,7 +19,7 @@ export class ActividadesHijosPage implements OnInit {
   constructor(private modalCtrl: ModalController, private asmsSrvc: AsmsServiceService ) { }
 
   async ngOnInit() {
-    (await this.asmsSrvc.getTareasAlumnos(this.codigoAlumno)).subscribe((tareas:any) => {
+    (await this.asmsSrvc.getTareasAlumnos(this.codigo)).subscribe((tareas:any) => {
       if(Object.prototype.toString.call(tareas) === '[object Array]'){
         this.tareas = tareas;
       }
@@ -37,7 +37,7 @@ export class ActividadesHijosPage implements OnInit {
 
   async verTarea(pos: any) {
     const codigo = this.tareas[pos].codigo;
-    const alumno = this.codigoAlumno;
+    const alumno = this.codigo;
     let status = 1;
     const situacion = this.tareas[pos].situacion;
     const respuesta = this.tareas[pos].tipo_respuesta;

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { VisorPDFPage } from 'src/app/pages/visor-pdf/visor-pdf.page';
 import { AsmsServiceService } from 'src/app/services/asms-service.service';
 
 @Component({
@@ -24,8 +25,23 @@ export class DetallesCircularPadresPage implements OnInit {
     (await this.asmsSrvc.getDetalleCircularPadre(this.codigo, this.codigoPadre)).subscribe((circulares: any) => {
       if(Object.prototype.toString.call(circulares) === '[object Array]'){
         this.circulares = circulares;
+        console.log(circulares);
       }
-    })
+    });
+  }
+
+  async verPDF(pdfSrc: string) {
+    const circular = true;
+    const pinboard = false;
+    const pagina = await this.modalCtrl.create({
+      component: VisorPDFPage,
+      componentProps: {
+        pdfSrc,
+        circular,
+        pinboard,
+      }
+    });
+    await pagina.present();
   }
 
   async autorizar(autorizacion: number){

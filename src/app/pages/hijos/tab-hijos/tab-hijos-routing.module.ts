@@ -9,6 +9,10 @@ const routes: Routes = [
     component: TabHijosPage,
     children: [
       {
+        path: 'notificaciones-hijos',
+        loadChildren: () => import('../notificaciones-hijos/notificaciones-hijos.module').then(m => m.NotificacionesHijosPageModule)
+      },
+      {
         path: 'multimedia-hijos',
         loadChildren: () => import('../multimedia-hijos/multimedia-hijos.module').then(m => m.MultimediaHijosPageModule)
       },

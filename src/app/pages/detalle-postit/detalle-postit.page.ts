@@ -5,6 +5,7 @@ import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { register } from 'swiper/element/bundle';
 import { VerImagenesPage } from '../ver-imagenes/ver-imagenes.page';
 import { AsmsServiceService } from 'src/app/services/asms-service.service';
+import { VisorPDFPage } from '../visor-pdf/visor-pdf.page';
 
 register();
 
@@ -40,21 +41,44 @@ export class DetallePostitPage implements OnInit {
     if (this.datosUsuario.tipo_codigo == this.maestro) {
       this.disabled = false;
     }
+    //console.log(this.imagenes);
   }
 
-  async verImg() {
-    const photo = false;
-    const imagen = true;
+  async verImg(noImg: number) {
+    const img = this.imagenes[noImg].imagen_url;
     const verImagen = await this.modalCtrl.create({
       component: VerImagenesPage,
       componentProps: {
-        photos: this.imagenes,
-        photo,
-        imagen
+        img,
       },
-      cssClass: 'transparent-modal'
     });
     await verImagen.present();
+  }
+
+  async verDocumento(url: string) {
+    let ext = url.split(".");
+    ext.reverse();
+    if (ext[0] == 'pdf'){
+      let pdfSrc = url;
+      const pinboard = true;
+      const circular = false;
+      const pagina = await this.modalCtrl.create({
+        component: VisorPDFPage,
+        componentProps: {
+          pdfSrc,
+          pinboard,
+          circular,
+        }
+      });
+      await pagina.present();
+    } else {
+      this.abrirEnlace(url);
+    }
+    //console.log(ext);
+  }
+
+  abrirEnlace(link: string) {
+    window.open(link, '_system');
   }
 
   async pickFile() {

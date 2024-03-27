@@ -6,7 +6,8 @@ import { DetallesCircularPadresPage } from '../circulares/detalles-circular-padr
 import { DetallesPostitPadresPage } from '../pinboard/detalles-postit-padres/detalles-postit-padres.page';
 import { DetallesPhAlPadrePage } from '../multimedia/photo-album-padres/detalles-ph-al-padre/detalles-ph-al-padre.page';
 import { DetalleTareaPadresPage } from '../tareas-hijos/tareas-pend-padres/detalle-tarea-padres/detalle-tarea-padres.page';
-import { MensajesPPage } from '../chats-p/mensajes-p/mensajes-p.page';
+import { MensajesChatPage } from '../chat/mensajes-chat/mensajes-chat.page';
+import { DetalleReportePage } from '../clases-reportes/hijos-reportes/lista-reportes/detalle-reporte/detalle-reporte.page';
 
 @Component({
   selector: 'app-notificaciones',
@@ -33,24 +34,25 @@ export class NotificacionesPage implements OnInit {
     this.codigo = this.datosUsuario.codigo;
     this.tipoUsu = this.datosUsuario.tipo_usuario;
     (await this.asmsSrvc.getNotificaciones(this.codigo, this.tipo, this.alumno, this.page)).subscribe((notificaciones: any) => {
-      if(Object.prototype.toString.call(notificaciones) === '[object Array]'){
+      if (Object.prototype.toString.call(notificaciones) === '[object Array]') {
         this.notificaciones = notificaciones;
+        //console.log(notificaciones);
       }
-      console.log(notificaciones, "Hola");
     });
     (await this.asmsSrvc.getHijos(this.tipoUsu, this.codigo)).subscribe((hijos: any) => {
-      if(Object.prototype.toString.call(hijos) === '[object Array]'){
+      if (Object.prototype.toString.call(hijos) === '[object Array]') {
         this.hijos = hijos;
       }
     });
   }
 
   recarga(event: any) {
+    this.page = 0;
     setTimeout(async () => {
       (await this.asmsSrvc.getNotificaciones(this.codigo, this.tipo, this.alumno, this.page)).subscribe((notificaciones: any) => {
         if (Object.prototype.toString.call(notificaciones) === '[object Array]') {
           this.notificaciones = notificaciones;
-          console.log(notificaciones);
+          //console.log(notificaciones);
         }
       });
       event.target.complete();
@@ -58,6 +60,11 @@ export class NotificacionesPage implements OnInit {
   }
 
   async verNotificaciones(pos: any) {
+    const tipo = this.notificaciones[pos].type;
+    const numeroNotificacion = this.notificaciones[pos].item_id;
+    (await this.asmsSrvc.cambioStatusNotificacion(this.codigo, tipo, numeroNotificacion)).subscribe((resp: any) => {
+      //console.log(resp);
+    });
     if (this.notificaciones[pos].categoria == "Circulares") {
       const codigo = this.notificaciones[pos].item_id;
       const pagina = await this.modalCtrl.create({
@@ -107,10 +114,31 @@ export class NotificacionesPage implements OnInit {
       const chat = this.notificaciones[pos].item_id;
       const codigo = this.codigo;
       const pagina = await this.modalCtrl.create({
-        component: MensajesPPage,
+        component: MensajesChatPage,
         componentProps: {
           maestro,
           chat,
+          codigo,
+        }
+      });
+      await pagina.present();
+      this.notificaciones[pos].clase = "leida";
+    } else if (this.notificaciones[pos].categoria == "Reporte de Pañal" || "Reporte de Golpe" || "Reporte de Enfermedad" || 'Reporte de Conducta') {
+      let tipo = 0;
+      if (this.notificaciones[pos].type == '7') {
+        tipo = 7;
+      } else if (this.notificaciones[pos].type == '8') {
+        tipo = 8;
+      } else if (this.notificaciones[pos].type == '9') {
+        tipo = 9;
+      } else if (this.notificaciones[pos].type == '10') {
+        tipo = 10;
+      }
+      const codigo = this.notificaciones[pos].item_id;
+      const pagina = await this.modalCtrl.create({
+        component: DetalleReportePage,
+        componentProps: {
+          tipo,
           codigo,
         }
       });
@@ -124,6 +152,7 @@ export class NotificacionesPage implements OnInit {
     (await this.asmsSrvc.getNotificaciones(this.codigo, this.tipo, this.alumno, this.page)).subscribe((notificaciones: any) => {
       if (Object.prototype.toString.call(notificaciones) === '[object Array]') {
         this.notificaciones.push(...notificaciones);
+        //console.log(notificaciones);
       } else {
         this.scroll = true;
       }

@@ -24,21 +24,17 @@ export class DetallePhotoAlbumHijosPage implements OnInit {
     (await this.asmsSrvc.getDetallePhotoAlbumAlumnos(this.codigo)).subscribe((detalles:any) => {
       if(Object.prototype.toString.call(detalles) === '[object Array]'){
         this.detalles = detalles;
+        console.log(detalles);
       }
     })
   }
 
-  async verImgs(){
-    const photo = true;
-    const imagen = false;
-    this.photos = [];
-    this.photos.push(this.detalles[0].imagenes);
+  async verImgs(noImg: number){
+    const img = this.detalles[0].imagenes[noImg].foto;
     const pagina = this.modalCtrl.create({
       component: VerImagenesPage,
       componentProps: {
-        photos: this.photos,
-        photo,
-        imagen
+        img,
       }
     });
     (await pagina).present();

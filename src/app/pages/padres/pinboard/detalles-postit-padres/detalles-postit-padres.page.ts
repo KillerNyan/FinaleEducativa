@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { VerImagenesPage } from 'src/app/pages/ver-imagenes/ver-imagenes.page';
+import { VisorPDFPage } from 'src/app/pages/visor-pdf/visor-pdf.page';
 import { AsmsServiceService } from 'src/app/services/asms-service.service';
 
 import { register } from 'swiper/element/bundle';
@@ -26,26 +27,46 @@ export class DetallesPostitPadresPage implements OnInit {
       if(Object.prototype.toString.call(detalles) === '[object Array]'){
         this.detallesPostit = detalles;
         this.target = this.detallesPostit[0].target
+        console.log(detalles);
       }
-    })
+    });
   }
 
-  async verImg() {
-    const photo = false;
-    const imagenP = true;
-    const imagen = false;
-    this.imagenes = [];
-    this.imagenes.push(this.detallesPostit[0].imagenes);
-    const pagina = await this.modalCtrl.create({
+  async verImg(noImg: number) {
+    const img = this.detallesPostit[0].imagenes[noImg].imagen_url;
+    const pagina = this.modalCtrl.create({
       component: VerImagenesPage,
       componentProps: {
-        photos: this.imagenes,
-        photo,
-        imagen,
-        imagenP
+        img,
       }
-    })
-    await pagina.present();
+    });
+    (await pagina).present();
+  }
+
+  async verDocumento(url: string) {
+    let ext = url.split(".");
+    ext.reverse();
+    if (ext[0] == 'pdf'){
+      let pdfSrc = url;
+      const pinboard = true;
+      const circular = false;
+      const pagina = await this.modalCtrl.create({
+        component: VisorPDFPage,
+        componentProps: {
+          pdfSrc,
+          pinboard,
+          circular,
+        }
+      });
+      await pagina.present();
+    } else {
+      this.abrirEnlace(url);
+    }
+    //console.log(ext);
+  }
+
+  abrirEnlace(link: string) {
+    window.open(link, '_system');
   }
 
   cerrar() {

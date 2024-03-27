@@ -99,9 +99,10 @@
     <ion-tabs>
 
       <ion-tab-bar slot="top" class="ion-padding">
-        <!-- <ion-tab-button tab="noticias" (click)="ocultarHome()">
+        <ion-tab-button tab="notificaciones-hijos" (click)="ocultarHome()">
           <ion-icon aria-hidden="true" name="home"></ion-icon>
-        </ion-tab-button> -->
+          <ion-badge color="danger">{{ contador }}</ion-badge>
+        </ion-tab-button>
 
         <ion-tab-button tab="multimedia-hijos" (click)="ocultarHome()">
           <ion-icon aria-hidden="true" name="images"></ion-icon>
@@ -117,7 +118,7 @@
 
   <ng-container *ngIf="mostrarHome">
     <div>
-      <br><br><br>
+      <br><br><br><br><br><br><br><br><br>
       <ion-img src="{{ logo }}" class="ion-padding"></ion-img>
 
       <!-- <div class="ion-text-center ion-padding">

@@ -34,13 +34,14 @@
 
     <div class="ion-padding">
       <swiper-container>
-        <swiper-slide *ngFor="let imagen of detalle.imagenes">
-          <img src="{{ imagen.imagen_url }}" (click)="verImg()">
+        <swiper-slide *ngFor="let imagen of detalle.imagenes; let i = index">
+          <img src="{{ imagen.imagen_url }}" (click)="verImg(i)">
         </swiper-slide>
         <swiper-slide *ngFor="let archivo of detalle.archivos">
-          <a href="{{ archivo.archivo_url }}" target="_blank">
+          <!-- <a href="{{ archivo.archivo_url }}" target="_blank">
             <ion-img src="{{ archivo.icono }}"></ion-img>
-          </a>
+          </a> -->
+          <img src="{{ archivo.icono }}" (click)="verDocumento(archivo.archivo_url)">
         </swiper-slide>
       </swiper-container>
     </div>

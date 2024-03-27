@@ -47,7 +47,7 @@ export class PhotosPage implements OnInit {
     await nuevo.present();
 
     const { data, role } = await nuevo.onWillDismiss();
-    console.log(role);
+    //console.log(role);
     if (role === 'confirm') {
       this.page = 0;
       (await this.asmsSrvc.getAlbumes(this.tipoUsu, this.codigoUsu, this.page)).subscribe((photoAlbums: any) => {

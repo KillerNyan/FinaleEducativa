@@ -5,6 +5,7 @@ import { AlumnosPostitPage } from '../alumnos-postit/alumnos-postit.page';
 
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { Storage } from '@ionic/storage-angular';
+import { Filesystem } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-nuevo-postit',
@@ -27,13 +28,13 @@ export class NuevoPostitPage implements OnInit {
   descripcion: string = '';
   postitFiles: any[] = [];
   archivos: number = 0;
-  
+
   async ngOnInit() {
     this.datosUsuario = await this.strg.get('datos');
     this.codigoMaestro = this.datosUsuario.tipo_codigo;
   }
 
-  async selectAlumnos(){
+  async selectAlumnos() {
     const grad = this.grado;
     const secc = this.seccion;
     const niv = this.nivel;
@@ -49,31 +50,32 @@ export class NuevoPostitPage implements OnInit {
     await pagina.present();
 
     const { data } = await pagina.onWillDismiss();
-    if( data.reemplazar ){
+    if (data.reemplazar) {
       this.seleccionados = data.seleccionados;
     }
     this.conteo = this.seleccionados.length;
   }
 
-  async pickFile(  ){
+  async pickFile() {
     await FilePicker.pickFiles({
       types: ['application/pdf', 'images/jpg', 'images/jpeg', 'images/png', 'images/bmp'],
       multiple: true,
-      readData: true
+      readData: false,
     }).then((file) => {
       //console.log(file);
-      for(let i = 0; i < file.files.length; i++){
-        const fileBase64 = file.files[i].data;
+      for (let i = 0; i < file.files.length; i++) {
+        //const fileBase64 = file.files[i].data;
         const mimeType = 'data:' + file.files[i].mimeType + ';base64,';
+        const pathFile = file.files[i].path;
         const docName = file.files[i].name;
-        let docFile = this.dataUrltoFile(mimeType+fileBase64, docName);
+        //let docFile = this.dataUrltoFile(mimeType+fileBase64, docName);
         let ext = file.files[i].mimeType;
-        this.postitFiles.push([docFile, ext]);
+        this.postitFiles.push([mimeType, ext, docName, pathFile]);
       }
       this.archivos = this.postitFiles.length;
       //console.log(this.archivos);
-    }).catch( err => {
-      console.log( err );
+    }).catch(err => {
+      console.log(err);
       console.log('El usuario cancelo la accion de seleccionar un archivo.');
     });
   }
@@ -85,45 +87,70 @@ export class NuevoPostitPage implements OnInit {
     //console.log(bstr);
     let n = bstr.length;
     let u8arr = new Uint8Array(n);
-    while (n--){
-        u8arr[n] = bstr.charCodeAt(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
     }
-    return new File([u8arr], filename, {type: mime});
+    return new File([u8arr], filename, { type: mime });
   }
 
-  async enviar(){
-    if (this.titulo != ''){
+  async enviar() {
+    if (this.titulo != '') {
       if (this.conteo != 0) {
         if (this.descripcion != '') {
           if (this.archivos != 0) {
             //array con (nivel, grado,seccion,maestro,titulo,descripcion)
-            this.data = [{nivel: this.nivel, grado: this.grado, seccion: this.seccion, maestro: this.codigoMaestro, titulo: this.titulo, descripcion: this.descripcion, target: this.seleccionados.join()}];
+            this.data = [{ nivel: this.nivel, grado: this.grado, seccion: this.seccion, maestro: this.codigoMaestro, titulo: this.titulo, descripcion: this.descripcion, target: this.seleccionados.join() }];
+
             (await this.asmsSrvc.nuevoPostit(this.data)).subscribe(async (resp: any) => {
-              let codigo = resp.codigo;
-              //console.log('Inicia subida de Archivos');
-              const loading = await this.loadingCtrl.create({
-                message: 'Creando Post It',
-                duration: 500 + (700 * this.postitFiles.length),
-              });
-              loading.present();
-              for( let i = 0; i < this.postitFiles.length; i++ ){
-                let file = this.postitFiles[i];
-                let extension = file[1];
-                //console.log(extension);
-                if (extension == 'image/png' || extension == 'image/jpg' || extension == 'image/jpeg' || extension == 'image/bmp') {
-                  (await this.asmsSrvc.ImgsPostit(codigo, extension, file[0])).subscribe((resp2: any) => {
-                    //console.log(resp2);
-                  });
-                } else {
-                  (await this.asmsSrvc.FilesPostit(codigo, extension, file[0])).subscribe((resp2: any) => {
-                    //console.log(resp2);
-                  });
+              console.log(resp);
+              if (resp.status == 'success') {
+                let codigo = resp.codigo;
+                const loading = await this.loadingCtrl.create({
+                  message: 'Creando Post It',
+                });
+                loading.present();
+                let progreso = 0;
+                for (let i = 0; i < this.postitFiles.length; i++) {
+                  let file = this.postitFiles[i];
+                  await Filesystem.readFile({
+                    path: file[3],
+                  }).then(async (fileOpen) => {
+                    const fileBase64 = fileOpen.data;
+                    const mimeType = file[0];
+                    const docName = file[2];
+                    let extension = file[1];
+                    let docFile = this.dataUrltoFile(mimeType + fileBase64, docName);
+                    if (extension == 'image/png' || extension == 'image/jpg' || extension == 'image/jpeg' || extension == 'image/bmp') {
+                      (await this.asmsSrvc.ImgsPostit(codigo, extension, docFile)).subscribe((resp2: any) => {
+                        progreso++;
+                        if (this.postitFiles.length == progreso) {
+                          this.modalCtrl.dismiss(null, 'confirm');
+                          this.presentToast(resp.message, 'light');
+                          loading.dismiss();
+                        } else {
+                          loading.message = `Subiendo Archivos (${progreso}/${this.postitFiles.length})`;
+                        }
+                        /* if (resp2.status == true) {
+                        } */
+                      });
+                    } else {
+                      (await this.asmsSrvc.FilesPostit(codigo, extension, file[0])).subscribe((resp2: any) => {
+                        progreso++;
+                        if (this.postitFiles.length == progreso) {
+                          this.modalCtrl.dismiss(null, 'confirm');
+                          this.presentToast(resp.message, 'light');
+                          loading.dismiss();
+                        } else {
+                          loading.message = `Subiendo Archivos (${progreso}/${this.postitFiles.length})`;
+                        }
+                        /* if (resp2.status == true) {
+                        } */
+                      });
+                    }
+                  })
+                  //console.log(extension);
                 }
               }
-              setTimeout(() => {
-                this.modalCtrl.dismiss( null, 'confirm' );
-                this.presentToast(resp.message, 'light');
-              }, 700 * this.postitFiles.length);
             });
           } else {
             this.confirmAlert();
@@ -165,13 +192,14 @@ export class NuevoPostitPage implements OnInit {
           console.log('Alert canceled');
           return;
         },
-      },  {
+      }, {
         text: 'Confirmar',
         role: 'confirm',
         cssClass: 'alert-button-confirm',
         handler: async () => {
           //array con (nivel, grado,seccion,maestro,titulo,descripcion)
-          this.data = [{nivel: this.nivel, grado: this.grado, seccion: this.seccion, maestro: this.codigoMaestro, titulo: this.titulo, descripcion: this.descripcion, target: this.seleccionados.join()}];
+          this.data = [{ nivel: this.nivel, grado: this.grado, seccion: this.seccion, maestro: this.codigoMaestro, titulo: this.titulo, descripcion: this.descripcion, target: this.seleccionados.join() }];
+          console.log(this.data);
           (await this.asmsSrvc.nuevoPostit(this.data)).subscribe(async (resp: any) => {
             const loading = await this.loadingCtrl.create({
               message: 'Creando Post It',
@@ -180,7 +208,7 @@ export class NuevoPostitPage implements OnInit {
             loading.present();
             this.presentToast(resp.message, 'light');
             setTimeout(() => {
-              this.modalCtrl.dismiss( null, 'confirm' );
+              this.modalCtrl.dismiss(null, 'confirm');
             }, 1000);
           });
         },
@@ -189,7 +217,7 @@ export class NuevoPostitPage implements OnInit {
     await alert.present();
   }
 
-  async presentToast(msg: string, cl: string, pos : any = "bottom") {
+  async presentToast(msg: string, cl: string, pos: any = "bottom") {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 5000,
@@ -197,10 +225,10 @@ export class NuevoPostitPage implements OnInit {
       color: cl,
     });
     await toast.present();
-  }
+  }
 
   cerrar() {
-    this.modalCtrl.dismiss( null, 'cancel' );
+    this.modalCtrl.dismiss(null, 'cancel');
   }
 
 }

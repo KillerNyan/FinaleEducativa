@@ -8,8 +8,9 @@ import { PostSecPage } from '../post-sec/post-sec.page';
 import { CalificacionesPage } from '../calificaciones/calificaciones.page';
 import { CircularesPage } from '../circulares/circulares.page';
 import { PhotosPage } from '../photos/photos.page';
-import { ReportesPage } from '../reportes/reportes.page';
 import { SoportePage } from '../soporte/soporte.page';
+import { ChatsMaestrosPage } from '../chats-maestros/chats-maestros.page';
+import { ReportesSeccionesPage } from '../reportes-secciones/reportes-secciones.page';
 
 @Component({
   selector: 'app-grados',
@@ -20,21 +21,27 @@ export class GradosPage implements OnInit {
 
   datosUsuario: any;
   nombre: string = '';
+  tipoUsuario: string = '';
+  codigo: string = '';
   foto: string = '';
   secciones: any[] = [];
   imagenes: any[] = [];
   logo: string = '';
   imgAlumnos: string = '';
+  
 
   constructor(private asmsSrvc: AsmsServiceService, private modalCtrl: ModalController, private storage: Storage, private navCtrl: NavController) { }
 
   async ngOnInit() {
     this.datosUsuario = await this.storage.get('datos');
+    this.tipoUsuario = this.datosUsuario.tipo_usuario;
+    this.codigo = this.datosUsuario.tipo_codigo;
     this.nombre = this.datosUsuario.nombre;
     this.foto = this.datosUsuario.url_foto;
-    (await this.asmsSrvc.getSecciones()).subscribe((secciones: any) => {
+    console.log(this.datosUsuario);
+    (await this.asmsSrvc.getSecciones(this.tipoUsuario, this.codigo)).subscribe((secciones: any) => {
       if(Object.prototype.toString.call(secciones) === '[object Array]'){
-        console.log(secciones);
+        //console.log(secciones);
         this.secciones = secciones;
       }
     });
@@ -80,7 +87,7 @@ export class GradosPage implements OnInit {
       componentProps: {
         imgAlumnos,
       }
-    })
+    });
     await pagina.present();
   }
 
@@ -91,7 +98,7 @@ export class GradosPage implements OnInit {
       componentProps: {
         imgAlumnos,
       }
-    })
+    });
     await pagina.present();
   }
 
@@ -102,28 +109,28 @@ export class GradosPage implements OnInit {
       componentProps: {
         imgAlumnos,
       }
-    })
+    });
     await pagina.present();
   }
 
   async verCirculares() {
     const pagina = await this.modalCtrl.create({
       component: CircularesPage,
-    })
+    });
     await pagina.present();
   }
 
   async verPhotoAlbum() {
     const pagina = await this.modalCtrl.create({
       component: PhotosPage,
-    })
+    });
     await pagina.present();
   }
 
   async verReportes() {
     const pagina = await this.modalCtrl.create({
-      component: ReportesPage,
-    })
+      component: ReportesSeccionesPage,
+    });
     await pagina.present();
   }
 
@@ -136,7 +143,17 @@ export class GradosPage implements OnInit {
         name,
         logo
       }
-    })
+    });
+    await pagina.present();
+  }
+
+  async verChats(){
+    const pagina = await this.modalCtrl.create({
+      component: ChatsMaestrosPage,
+      componentProps: {
+        
+      }
+    });
     await pagina.present();
   }
 

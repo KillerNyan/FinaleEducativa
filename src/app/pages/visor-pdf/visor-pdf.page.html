@@ -1,0 +1,62 @@
+<ion-content class="transparent-modal" [fullscreen]="true">
+
+  <pdf-viewer [src]="pdfSrc"
+  [render-text]="true"
+  [original-size]="false"
+  [zoom]="zoom"
+  [show-borders]="true"
+  [rotation]="rotation"
+  style="width: 400px; height: 100%"
+  ></pdf-viewer>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" style="margin-bottom: 60px;">
+    <ion-fab-button size="medium">
+      <ion-icon style="zoom: 1.2;" name="settings-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button style="width: 50px; height: 50px;" (click)="zoomIn()">
+        <ion-icon name="add-circle-outline" style="zoom: 1.5;" color="primary"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button style="width: 50px; height: 50px;" (click)="rotate()">
+        <ion-icon name="refresh" style="zoom: 1.5;" color="primary"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button style="width: 50px; height: 50px;" (click)="zoomOut()">
+        <ion-icon name="remove-circle-outline" style="zoom: 1.5;" color="primary"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="dark">
+
+    <ion-grid fixed>
+      <ion-row>
+        <ng-container *ngIf="circular">
+          <ion-col size="12" class="ion-text-center">
+            <ion-button (click)="cerrar()" fill="clear" color="light">
+              <ion-icon slot="start" name="close" color="light"></ion-icon>
+              Cerrar
+            </ion-button>
+          </ion-col>
+        </ng-container>
+        <ng-container *ngIf="pinboard">
+          <ion-col size="6" class="ion-text-center">
+            <ion-button (click)="cerrar()" fill="clear" color="light">
+              <ion-icon slot="start" name="close" color="light"></ion-icon>
+              Cerrar
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" class="ion-text-center">
+            <ion-button (click)="descargar()" fill="clear" color="light">
+              <ion-icon slot="start" name="download" color="light"></ion-icon>
+              Descargar
+            </ion-button>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+
+  </ion-toolbar>
+</ion-footer>

@@ -93,7 +93,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
 
   <ion-card *ngFor="let seccion of secciones; let i = index" (click)='verAlumnos(i)' style="background-image: url({{imgAlumnos}});">
     <ion-card-title color="light"> {{ seccion.grado_descripcion }} Sección: {{ seccion.seccion_descripcion }} </ion-card-title>
@@ -109,10 +109,10 @@
       </ion-fab-button>
       <!-- <ion-fab-button style="width: 50px; height: 50px;">
         <ion-icon name="glasses-outline" style="zoom: 1.5;" color="primary"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button style="width: 50px; height: 50px;">
-        <ion-icon name="chatbubbles-outline" style="zoom: 1.5;" color="primary"></ion-icon>
       </ion-fab-button> -->
+      <ion-fab-button style="width: 50px; height: 50px;" (click)="verChats()">
+        <ion-icon name="chatbubbles-outline" style="zoom: 1.5;" color="primary"></ion-icon>
+      </ion-fab-button>
       <ion-fab-button style="width: 50px; height: 50px;" (click)="verPostit()">
         <ion-icon name="pin-outline" style="zoom: 1.5;" color="primary"></ion-icon>
       </ion-fab-button>

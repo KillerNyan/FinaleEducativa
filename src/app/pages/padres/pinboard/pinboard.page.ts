@@ -38,7 +38,7 @@ export class PinboardPage implements OnInit {
           if(Object.prototype.toString.call(postits) === '[object Array]'){
             this.postits = postits;
           }
-        })
+        });
       }
     });
   }

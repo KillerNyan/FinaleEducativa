@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 import { AsmsServiceService } from 'src/app/services/asms-service.service';
 
 @Component({
@@ -18,11 +19,17 @@ export class AlumnosPhotoAlbumPage implements OnInit {
   secciones: any[] = [];
   niveles: any[] = [];
   @Input() seleccionados: any[] = [];
+  datosUsuario: any;
+  tipoUsuario: string = '';
+  codigo: string = '';  
 
-  constructor( private modalCtrl: ModalController, private asmsSrvc: AsmsServiceService ) { }
+  constructor( private modalCtrl: ModalController, private asmsSrvc: AsmsServiceService, private strg: Storage ) { }
 
   async ngOnInit() {
-    (await this.asmsSrvc.getSecciones()).subscribe( async (aulas: any) => {
+    this.datosUsuario = await this.strg.get('datos');
+    this.tipoUsuario = this.datosUsuario.tipo_usuario;
+    this.codigo = this.datosUsuario.tipo_codigo;
+    (await this.asmsSrvc.getSecciones(this.tipoUsuario, this.codigo)).subscribe( async (aulas: any) => {
       if(Object.prototype.toString.call(aulas) === '[object Array]'){
         this.aulas = aulas;
         for (let i = 0; i < this.aulas.length; i++) {

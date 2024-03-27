@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AsmsServiceService } from 'src/app/services/asms-service.service';
 import { CaliAlumnosPage } from '../cali-alumnos/cali-alumnos.page';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-calificaciones',
@@ -11,14 +12,20 @@ import { CaliAlumnosPage } from '../cali-alumnos/cali-alumnos.page';
 export class CalificacionesPage implements OnInit {
 
   secciones: any[] = [];
-  @Input() imgAlumnos: string = '';
+  @Input() imgAlumnos: string = ''; 
+  datosUsuario: any;
+  tipoUsuario: string = '';
+  codigo: string = '';  
 
-  constructor( private asmsSrvc: AsmsServiceService, private modalCtrl: ModalController ) { }
+  constructor( private asmsSrvc: AsmsServiceService, private modalCtrl: ModalController, private strg: Storage ) { }
 
   async ngOnInit() {
-    (await this.asmsSrvc.getSecciones()).subscribe((secciones: any) => {
+    this.datosUsuario = await this.strg.get('datos');
+    this.tipoUsuario = this.datosUsuario.tipo_usuario;
+    this.codigo = this.datosUsuario.tipo_codigo;
+    (await this.asmsSrvc.getSecciones(this.tipoUsuario, this.codigo)).subscribe((secciones: any) => {
       this.secciones = secciones;
-    })
+    });
   }
 
   async verAlumnos( pos: any ) {

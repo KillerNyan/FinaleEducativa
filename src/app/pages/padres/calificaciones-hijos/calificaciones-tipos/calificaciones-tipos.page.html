@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Calificaciones</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="3"></ion-col>
+      <ion-col size="6">
+        <div class="ion-padding-top ion-text-center">
+          <img src="{{ imgHijo }}" style="border-radius: 100%;">
+          <div class="ion-padding-top">
+            <ion-label style="font-size: 25px;"><b>{{ nombreHijo }}</b></ion-label><br>
+            <ion-label style="font-size: 20px;"><b>{{ apellidoHijo }}</b></ion-label>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="3"></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Le mando 0 para definir la busqueda por Unidades -->
+  <ion-card (click)="verCalificaciones(0)">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="2">
+          <ion-icon size="large" name="clipboard-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="8">
+          <div style="margin-top: 7px;">
+            <ion-label style="font-size: 17px;">Calificaciones por Unidad</ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="2">
+          <ion-icon size="large" name="arrow-forward-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <!-- Le mando 1 para definir la busqueda por Materias -->
+  <ion-card (click)="verCalificaciones(1)">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="2">
+          <ion-icon name="clipboard-outline" size="large"></ion-icon>
+        </ion-col>
+        <ion-col size="8">
+          <div style="margin-top: 7px;">
+            <ion-label style="font-size: 17px;">Calificaciones por Materia</ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="2">
+          <ion-icon name="arrow-forward-outline" size="large"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+</ion-content>

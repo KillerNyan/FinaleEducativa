@@ -5,6 +5,7 @@ import { AsmsServiceService } from 'src/app/services/asms-service.service';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { AlumnosPhotoAlbumPage } from './alumnos-photo-album/alumnos-photo-album.page';
 import { Storage } from '@ionic/storage-angular';
+import { Filesystem } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-nuevo-photo-album',
@@ -49,14 +50,16 @@ export class NuevoPhotoAlbumPage implements OnInit {
     await FilePicker.pickFiles({
       types: ['images/jpg', 'images/jpeg', 'images/png', 'images/bmp'],
       multiple: true,
-      readData: true
+      readData: false,
     }).then(async (file) => {
       for (let i = 0; i < file.files.length; i++) {
-        const fileBase64 = file.files[i].data;
+        //const fileBase64 = file.files[i].data;
         const mimeType = 'data:' + file.files[i].mimeType + ';base64,';
+        const pathFile = file.files[i].path;
         const docName = file.files[i].name;
-        let docFile = this.dataUrltoFile(mimeType+fileBase64, docName);
-        this.photoFiles.push([docFile]);
+        let ext = file.files[i].mimeType;
+        //let docFile = this.dataUrltoFile(mimeType+fileBase64, docName);
+        this.photoFiles.push([mimeType, ext, docName, pathFile]);
       }
       this.archivos = this.photoFiles.length;
     }).catch(err => {
@@ -88,18 +91,32 @@ export class NuevoPhotoAlbumPage implements OnInit {
             let codigo = resp.album;
             const loading = await this.loadingCtrl.create({
               message: 'Creando Photo Album',
-              duration: 500 + (700 * this.photoFiles.length),
             });
             loading.present();
+            let progreso = 0;
             for (let i = 0; i < this.photoFiles.length; i++) {
               let file = this.photoFiles[i];
-              (await this.asmsSrvc.ImgsPhotoAlbum(codigo, file[0])).subscribe(async () => {
+              await Filesystem.readFile({
+                path: file[3],
+              }).then(async (fileOpen) => {
+                const fileBase64 = fileOpen.data;
+                const mimeType = file[0];
+                const docName = file[2];
+                //let ext = file[1];
+                let docFile = this.dataUrltoFile(mimeType+fileBase64, docName);
+                (await this.asmsSrvc.ImgsPhotoAlbum(codigo, docFile)).subscribe(async (resp2: any) => {
+                  console.log(resp2);
+                  progreso++;
+                  if (this.photoFiles.length == progreso) {
+                    this.modalCtrl.dismiss( null, 'confirm' );
+                    this.presentToast(resp.message, 'light');
+                    loading.dismiss();
+                  } else {
+                    loading.message = `Subiendo Archivos (${progreso}/${this.photoFiles.length})`;
+                  }
+                });
               });
             }
-            setTimeout(() => {
-              this.modalCtrl.dismiss( null, 'confirm' );
-              this.presentToast(resp.message, 'light');
-            }, 700 * this.photoFiles.length);
           });
         } else {
           const alert = await this.alertCtrl.create({

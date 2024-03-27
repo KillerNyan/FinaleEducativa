@@ -31,7 +31,7 @@
         <ion-label color="primary"><b>Fotografías:</b></ion-label>
       </div>
       <swiper-container>
-        <swiper-slide *ngFor="let imagen of detalle.imagenes" (click)="verImgs()">
+        <swiper-slide *ngFor="let imagen of detalle.imagenes; let i = index" (click)="verImgs(i)">
           <img src="{{ imagen.foto }}" style="height: 300px; width: 100%;">
         </swiper-slide>
       </swiper-container>

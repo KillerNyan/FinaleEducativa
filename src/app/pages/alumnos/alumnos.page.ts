@@ -41,7 +41,7 @@ export class AlumnosPage implements OnInit {
         cui: num,
         seccion: sec,
       }
-    })
+    });
     await pagina.present();
   }
 

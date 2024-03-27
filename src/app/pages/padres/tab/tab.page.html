@@ -52,7 +52,7 @@
           </ion-item>
           <!-- <ion-item (click)="verNotas()">
             <ion-icon name="ribbon-outline" slot="start" color="primary"></ion-icon>
-            <ion-label color="primary">Notas</ion-label>
+            <ion-label color="primary">Calificaciones</ion-label>
           </ion-item> -->
           <!-- <ion-item (click)="verReportes()">
             <ion-icon name="newspaper-outline" slot="start" color="primary"></ion-icon>
@@ -124,9 +124,9 @@
           <ion-fab-button style="width: 50px; height: 50px;" (click)="verPagos()">
             <ion-icon name="cash-outline" style="zoom: 1.5;" color="primary"></ion-icon>
           </ion-fab-button>
-          <!-- <ion-fab-button style="width: 50px; height: 50px;">
+          <ion-fab-button style="width: 50px; height: 50px;" (click)="verChats()">
             <ion-icon name="chatbubbles-outline" style="zoom: 1.5;" color="primary"></ion-icon>
-          </ion-fab-button> -->
+          </ion-fab-button>
           <!-- <ion-fab-button style="width: 50px; height: 50px;">
             <ion-icon name="people-circle-outline" style="zoom: 1.5;" color="primary"></ion-icon>
           </ion-fab-button> -->
@@ -141,7 +141,7 @@
 
   <ng-container *ngIf="mostrarHome">
     <div>
-      <br><br><br>
+      <br><br><br><br><br><br><br><br><br>
       <ion-img src="{{ logo }}" class="ion-padding"></ion-img>
 
       <!-- <div class="ion-text-center ion-padding">

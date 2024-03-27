@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Reportes (Secciones)</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let seccion of secciones; let i = index" (click)='verAlumnos(i)' style="background-image: url({{imgAlumnos}});">
+    <ion-card-title color="light"> {{ seccion.grado_descripcion }} Sección: {{ seccion.seccion_descripcion }} </ion-card-title>
+  </ion-card>
+
+</ion-content>

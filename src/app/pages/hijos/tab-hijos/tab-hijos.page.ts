@@ -15,7 +15,11 @@ export class TabHijosPage implements OnInit {
   datosUsuario: any;
   nombre: string = '';
   foto: string = '';
-  codigoAlumno: string = '';
+  codigo: string = '';
+  tipo: string = '';
+  alumno: string = '';
+  page: number = 0;
+  contador: number = 0;
   imagenes: any;
   logo: string = '';
   
@@ -28,11 +32,22 @@ export class TabHijosPage implements OnInit {
     this.datosUsuario = await this.storage.get('datos');
     this.nombre = this.datosUsuario.nombre;
     this.foto = this.datosUsuario.url_foto;
-    this.codigoAlumno = this.datosUsuario.tipo_codigo;
+    this.codigo = this.datosUsuario.tipo_codigo;
+    console.log(this.datosUsuario);
     (await this.asmsSrvc.getImagenes()).subscribe((imagenes: any) => {
       this.imagenes = imagenes;
       this.logo = imagenes.data.logo;
-    })
+    });
+    (await this.asmsSrvc.getNotificaciones(this.codigo, this.tipo, this.alumno, this.page)).subscribe((notificaciones: any) => {
+      if (Object.prototype.toString.call(notificaciones) === '[object Array]') {
+        for(let i = 0; i < notificaciones.length; i++) {
+          if(notificaciones[i].clase === 'noleida'){
+            this.contador = this.contador + 1;
+          }
+        }
+        console.log(notificaciones);
+      }
+    });
   }
 
   async logOut(){
@@ -58,11 +73,11 @@ export class TabHijosPage implements OnInit {
   }
 
   async verActividades(){
-    const codigoAlumno = this.codigoAlumno;
+    const codigo = this.codigo;
     const pagina = await this.modalCtrl.create({
       component: ActividadesHijosPage,
       componentProps: {
-        codigoAlumno
+        codigo
       }
     });
     await pagina.present();

@@ -24,14 +24,21 @@ export class DetallesPhAlPadrePage implements OnInit {
     (await this.asmsSrvc.getDetallesPhotoAlbumPadre(this.codigo)).subscribe((detalles:any) => {
       if(Object.prototype.toString.call(detalles) === '[object Array]'){
         this.detalles = detalles;
+        console.log(detalles);
       }
     })
   }
 
-  async verImgs(){
-    const photo = true;
-    const imagen = false;
-    this.photos = [];
+  async verImgs(noImg: number){
+    const img = this.detalles[0].imagenes[noImg].foto;
+    const pagina = this.modalCtrl.create({
+      component: VerImagenesPage,
+      componentProps: {
+        img,
+      }
+    });
+    (await pagina).present();
+    /* this.photos = [];
     this.photos.push(this.detalles[0].imagenes);
     const pagina = this.modalCtrl.create({
       component: VerImagenesPage,
@@ -41,7 +48,7 @@ export class DetallesPhAlPadrePage implements OnInit {
         imagen
       }
     });
-    (await pagina).present();
+    (await pagina).present(); */
   }
 
   cerrar(){

@@ -6,6 +6,9 @@ import { UserService } from 'src/app/services/user.service';
 import { PagosHijosPage } from '../pagos-hijos/pagos-hijos.page';
 import { TareasHijosPage } from '../tareas-hijos/tareas-hijos.page';
 import { SoportePage } from '../../soporte/soporte.page';
+import { ChatPage } from '../chat/chat.page';
+import { ClasesReportesPage } from '../clases-reportes/clases-reportes.page';
+import { CalificacionesHijosPage } from '../calificaciones-hijos/calificaciones-hijos.page';
 
 @Component({
   selector: 'app-tab',
@@ -73,12 +76,18 @@ export class TabPage implements OnInit {
     await pagina.present();
   }
 
-  verNotas(){
-
+  async verNotas(){
+    const pagina = await this.modalCtrl.create({
+      component: CalificacionesHijosPage,
+    });
+    await pagina.present();
   }
 
-  verReportes(){
-
+  async verReportes(){
+    const pagina = await this.modalCtrl.create({
+      component: ClasesReportesPage,
+    });
+    await pagina.present();
   }
   
   async verSoporte(){
@@ -89,6 +98,16 @@ export class TabPage implements OnInit {
       componentProps: {
         name,
         logo
+      }
+    });
+    await pagina.present();
+  }
+
+  async verChats(){
+    const pagina = await this.modalCtrl.create({
+      component: ChatPage,
+      componentProps: {
+        
       }
     });
     await pagina.present();

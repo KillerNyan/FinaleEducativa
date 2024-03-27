@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Reportes</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-padding-bottom">
+    <ion-grid fixed class="ion-padding-bottom">
+      <ion-row>
+        <ion-col size="4">
+          <ion-avatar>
+            <ion-img src="{{ foto }}"
+              style="height: 100px; width: 100px; margin-top: 10px; margin-left: 10px;"></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="8" style="margin-top: 10px;">
+          <label style="font-size: 25px;"><b>{{ nombre }}</b></label><br>
+          <label style="font-size: 20px;">{{ apellido }}</label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="ion-padding-top">
+    <ion-grid fixed class="ion-padding-top ion-padding-start">
+      <ion-row class="ion-padding-top" style="background-color: midnightblue;">
+        <ion-col size="2">
+          <div class="ion-text-center">
+            <ion-label color="light"><b>No.</b></ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="5">
+          <div class="ion-text-center">
+            <ion-label color="light"><b>Titulo</b></ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="5">
+          <div class="ion-text-center">
+            <ion-label color="light"><b>Fecha</b></ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngFor="let reporte of reportes; let i = index">
+    <ion-item (click)="verDetalles(i)">
+      <ion-grid fixed class="ion-padding-start">
+        <ion-row>
+          <ion-col size="2">
+            <div>
+              <ion-label>{{ i + 1 }}</ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="ion-text-center">
+              <ion-label>{{ reporte.titulo }}</ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="4">
+            <div class="ion-text-center">
+              <ion-label>{{ reporte.fecha }}</ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+
+</ion-content>
